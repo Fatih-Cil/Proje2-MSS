@@ -14,5 +14,7 @@ namespace Entities.Concrete
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public ICollection<ShopCampaign> ShopCampaigns { get; set; }
+
     }
 }

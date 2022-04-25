@@ -12,5 +12,8 @@ namespace Entities.Concrete
         
         public int ShopId { get; set; }
         public int CampaignId { get; set; }
+
+        public virtual Shop Shop { get; set; }
+        public virtual Campaign Campaign { get; set; }
     }
 }

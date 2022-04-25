@@ -13,5 +13,8 @@ namespace Entities.Concrete
         public decimal DailySalesEarning { get; set; }
         public int DailySalesAmount { get; set; }
         public DateTime SalesDate { get; set; }
+
+        public int ShopId { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

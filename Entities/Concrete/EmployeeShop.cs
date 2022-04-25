@@ -14,6 +14,8 @@ namespace Entities.Concrete
         public int ShiftId { get; set; }
         public DateTime Date { get; set; }
 
-               
+        
+        public virtual Employee Employee { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

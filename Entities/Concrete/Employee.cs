@@ -19,5 +19,7 @@ namespace Entities.Concrete
 
         public int AuthId { get; set; }
         public virtual Authorization Authorization { get; set; }
+
+        public ICollection<EmployeeShop> EmployeeShops { get; set; }
     }
 }

@@ -18,5 +18,7 @@ namespace Entities.Concrete
         public string Url4 { get; set; }
         public string Url5 { get; set; }
 
+        public int ShopId { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }
