@@ -16,5 +16,8 @@ namespace Entities.Concrete
         public string Mail { get; set; }
         public string Password { get; set; }
         public DateTime RegisterDate { get; set; }
+
+        public int AuthId { get; set; }
+        public virtual Authorization Authorization { get; set; }
     }
 }

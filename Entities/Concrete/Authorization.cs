@@ -12,5 +12,7 @@ namespace Entities.Concrete
         public int AuthId { get; set; }
         public string AuthName { get; set; }
         public string Comment { get; set; }
+
+        public ICollection<Employee> Employees { get; set; }
     }
 }

@@ -10,7 +10,6 @@ namespace Entities.Concrete
     public class VisitorEvent : IEntity
     {
         public int VisitorId { get; set; }
-        public int MyProperty { get; set; }
         public DateTime EventDate { get; set; }
         public DateTime EventTime { get; set; }
         public string Pozition { get; set; }
