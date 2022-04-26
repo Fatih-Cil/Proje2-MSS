@@ -1,6 +1,7 @@
 ﻿using Entities.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace Entities.Concrete
 {
     public class EmployeeShop:IEntity
     {
+        [Key]
         public int EmployeeId { get; set; }
         public int ShopId { get; set; }
         public int ShiftId { get; set; }
@@ -17,5 +19,6 @@ namespace Entities.Concrete
         
         public virtual Employee Employee { get; set; }
         public virtual Shop Shop { get; set; }
+        public virtual Shift Shift { get; set; }
     }
 }
