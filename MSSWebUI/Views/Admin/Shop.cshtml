@@ -1,0 +1,191 @@
+﻿@using Entities.Concrete
+@model List<Shop>
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Şube İşlemleri </h5><br />
+
+                </div>
+                <div class="card-block row">
+
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subeEkle"><i class="icon-plus"></i> Şube Ekle</a>
+                        <div class="modal fade" id="subeEkle" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Şube Ekle</h5>
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form asp-action="AddShop" asp-controller="Admin" method="post">
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                <input class="form-control" type="text" required="" name="ShopName">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
+                                                <input class="form-control" type="time" required="" name="Opening">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                <input class="form-control" type="time" required="" name="Closing">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                <input class="form-control" type="text" required="" name="Locasion">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
+                                                <button class="btn btn-primary" type="submit">Kaydet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Şube ID</th>
+                                        <th scope="col">Şube Adı</th>
+                                        <th scope="col">Açılış</th>
+                                        <th scope="col">Kapanış</th>
+                                        <th scope="col">Lokasyon</th>
+                                        <th scope="col">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        string duzenle = ""; duzenle = "duzenle" + item.ShopId;
+                                        string sil = ""; sil = "sil" + item.ShopId;
+                                        <tr>
+                                            <th scope="row">@item.ShopId</th>
+                                            <td>@item.ShopName</td>
+                                            <td>@item.Opening</td>
+                                            <td>@item.Closing</td>
+                                            <td>@item.Locasion</td>
+                                            <td>
+
+
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
+
+                                                <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Şube Sil</h5>
+                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form asp-action="DeleteShop" asp-controller="Admin" method="post">
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Şube ID:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" name="ShopId" value="@item.ShopId">
+                                                                    </div>
+
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                        <input class="form-control" type="text" required="" name="ShopName" value="@item.ShopName">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
+                                                                        <input class="form-control" type="time" required="" name="Opening" value="@item.Opening">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                                        <input class="form-control" type="time" required="" name="Closing" value="@item.Closing">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                        <input class="form-control" type="text" required="" name="Locasion" value="@item.Locasion">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
+                                                                        <button class="btn btn-primary" type="submit">Sil</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                                <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Şube Düzenle</h5>
+                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form asp-action="UpdateShop" asp-controller="Admin" method="post">
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Şube ID:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" name="ShopId" value="@item.ShopId">
+                                                                    </div>
+
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                        <input class="form-control" type="text" required="" name="ShopName" value="@item.ShopName">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
+                                                                        <input class="form-control" type="time" required="" name="Opening" value="@item.Opening">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                                        <input class="form-control" type="time" required="" name="Closing" value="@item.Closing">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                        <input class="form-control" type="text" required="" name="Locasion" value="@item.Locasion">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
+                                                                        <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </td>
+                                        </tr>
+
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -13,8 +13,8 @@ namespace Entities.Concrete
         [Key]
         public int ShiftId { get; set; }
         public string ShiftName { get; set; }
-        public DateTime CheckIn { get; set; }
-        public DateTime CheckOut { get; set; }
+        public TimeSpan CheckIn { get; set; }
+        public TimeSpan CheckOut { get; set; }
 
         public ICollection<EmployeeShop> EmployeeShops { get; set; }
     }

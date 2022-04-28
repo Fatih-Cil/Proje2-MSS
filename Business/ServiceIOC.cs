@@ -20,7 +20,8 @@ namespace Business
             services.AddScoped<IEmployeeDal, EfEmployeeDal>();
             services.AddScoped<IAuthorityService, AuthorityManager>();
             services.AddScoped<IAuthorityDal, EfAuthorityDal>();
-
+            services.AddScoped<IShopService, ShopManager>();
+            services.AddScoped<IShopDal, EfShopDal>();
         }
     }
 }

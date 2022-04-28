@@ -14,8 +14,9 @@ namespace Entities.Concrete
         public int ShopId { get; set; }
         public string ShopName { get; set; }
         public string Locasion { get; set; }
-        public DateTime Opening { get; set; }
-        public DateTime Closing { get; set; }
+        public TimeSpan Opening { get; set; }
+        public TimeSpan Closing { get; set; }
+        public bool Status { get; set; }
 
         public ICollection<EmployeeShop> EmployeeShops { get; set; }
         public ICollection<ShowCase> ShowCases { get; set; }

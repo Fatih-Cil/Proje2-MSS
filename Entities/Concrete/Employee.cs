@@ -19,6 +19,7 @@ namespace Entities.Concrete
         public string Mail { get; set; }
         public string Password { get; set; }
         public DateTime RegisterDate { get; set; }
+        public bool Status { get; set; }
 
 
         public virtual Authority Authorities { get; set; }
