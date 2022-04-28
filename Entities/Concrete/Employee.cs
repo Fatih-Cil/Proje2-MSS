@@ -12,6 +12,7 @@ namespace Entities.Concrete
     {
         [Key]
         public int EmployeeId { get; set; }
+        public int AuthorityId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
         public string RegisterNumber { get; set; }
@@ -19,9 +20,8 @@ namespace Entities.Concrete
         public string Password { get; set; }
         public DateTime RegisterDate { get; set; }
 
-        public int AuthId { get; set; }
-        public virtual Authorization Authorization { get; set; }
 
+        public virtual Authority Authorities { get; set; }
         public ICollection<EmployeeShop> EmployeeShops { get; set; }
     }
 }

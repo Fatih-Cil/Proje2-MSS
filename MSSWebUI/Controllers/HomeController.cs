@@ -56,10 +56,11 @@ namespace MSSWebUI.Controllers
                 if (_user.Mail == login.Mail && _user.Password == login.Password)
                 {
 
-
+                    //ModelState.AddModelError("Password", "Giriş başarılı");
+                    //return View();
                     HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(_user));
-                    return RedirectToAction("index", "burak");
-                    
+                    return RedirectToAction("index", "Admin");
+
 
                 }
                 else

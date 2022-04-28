@@ -3,22 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class create : Migration
+    public partial class firstcode : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Authorizations",
+                name: "Authorities",
                 columns: table => new
                 {
-                    AuthId = table.Column<int>(type: "int", nullable: false)
+                    AuthorityId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AuthName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuthorityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authorizations", x => x.AuthId);
+                    table.PrimaryKey("PK_Authorities", x => x.AuthorityId);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,24 +73,23 @@ namespace DataAccess.Migrations
                 {
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    AuthorityId = table.Column<int>(type: "int", nullable: false),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegisterNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AuthId = table.Column<int>(type: "int", nullable: false),
-                    AuthorizationAuthId = table.Column<int>(type: "int", nullable: true)
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.EmployeeId);
                     table.ForeignKey(
-                        name: "FK_Employees_Authorizations_AuthorizationAuthId",
-                        column: x => x.AuthorizationAuthId,
-                        principalTable: "Authorizations",
-                        principalColumn: "AuthId",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Employees_Authorities_AuthorityId",
+                        column: x => x.AuthorityId,
+                        principalTable: "Authorities",
+                        principalColumn: "AuthorityId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,9 +223,9 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_AuthorizationAuthId",
+                name: "IX_Employees_AuthorityId",
                 table: "Employees",
-                column: "AuthorizationAuthId");
+                column: "AuthorityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeShops_EmployeeId1",
@@ -299,7 +298,7 @@ namespace DataAccess.Migrations
                 name: "Shops");
 
             migrationBuilder.DropTable(
-                name: "Authorizations");
+                name: "Authorities");
         }
     }
 }

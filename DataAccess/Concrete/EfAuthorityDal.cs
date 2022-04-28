@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public class EfAuthorizationDal : EfEntityRepositoryBase<Authorization, MSSContext>, IAuthorizationDal
+    public class EfAuthorityDal : EfEntityRepositoryBase<Authority, MSSContext>, IAuthorityDal
     {
     }
 }

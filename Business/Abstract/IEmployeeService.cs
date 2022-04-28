@@ -12,7 +12,7 @@ namespace Business.Abstract
         List<Employee> GetAll();
         Employee GetByEmployeeId(int employeeId);
         Employee GetByEmployeeMail(string mail);
-        List<Employee> GetAllByEmployeeAuthId(int authId);
+        List<Employee> GetAllByEmployeeAuthId(int authorityId);
         Employee GetByEmployeeRegisterNumber(string registerNumber);
         void Add(Employee employee);
         void Update(Employee employee);

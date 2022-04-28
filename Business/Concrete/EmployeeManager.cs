@@ -38,9 +38,9 @@ namespace Business.Concrete
             return _employeeDal.Get(p => p.RegisterNumber == registerNumber);
         }
 
-        public List<Employee> GetAllByEmployeeAuthId(int authId)
+        public List<Employee> GetAllByEmployeeAuthId(int authorityId)
         {
-            return _employeeDal.GetAll(p => p.AuthId == authId);
+            return _employeeDal.GetAll(p => p.AuthorityId == authorityId);
         }
 
         public Employee GetByEmployeeId(int employeeId)

@@ -18,7 +18,7 @@ namespace DataAccess.Context
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Finance> Finances { get; set; }
-        public DbSet<Authorization> Authorizations { get; set; }
+        public DbSet<Authority> Authorities { get; set; }
         public DbSet<EmployeeShop> EmployeeShops { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Shop> Shops { get; set; }

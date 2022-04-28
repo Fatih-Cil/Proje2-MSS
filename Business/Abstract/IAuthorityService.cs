@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+namespace Business.Abstract
 {
-    public interface IAuthorizationDal : IEntityRepository<Authorization>
+    public interface IAuthorityService
     {
+
+        Authority GetByAuthortiyId(int authorityId);
     }
 }

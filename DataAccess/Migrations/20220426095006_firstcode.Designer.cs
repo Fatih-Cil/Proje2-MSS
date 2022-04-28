@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MSSContext))]
-    [Migration("20220426090109_create")]
-    partial class create
+    [Migration("20220426095006_firstcode")]
+    partial class firstcode
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,22 +21,22 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.Concrete.Authorization", b =>
+            modelBuilder.Entity("Entities.Concrete.Authority", b =>
                 {
-                    b.Property<int>("AuthId")
+                    b.Property<int>("AuthorityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AuthName")
+                    b.Property<string>("AuthorityName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AuthId");
+                    b.HasKey("AuthorityId");
 
-                    b.ToTable("Authorizations");
+                    b.ToTable("Authorities");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Campaign", b =>
@@ -67,10 +67,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuthorizationAuthId")
+                    b.Property<int>("AuthorityId")
                         .HasColumnType("int");
 
                     b.Property<string>("EmployeeName")
@@ -93,7 +90,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("AuthorizationAuthId");
+                    b.HasIndex("AuthorityId");
 
                     b.ToTable("Employees");
                 });
@@ -287,11 +284,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.Employee", b =>
                 {
-                    b.HasOne("Entities.Concrete.Authorization", "Authorization")
+                    b.HasOne("Entities.Concrete.Authority", "Authorities")
                         .WithMany("Employees")
-                        .HasForeignKey("AuthorizationAuthId");
+                        .HasForeignKey("AuthorityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Authorization");
+                    b.Navigation("Authorities");
                 });
 
             modelBuilder.Entity("Entities.Concrete.EmployeeShop", b =>
@@ -373,7 +372,7 @@ namespace DataAccess.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.Authorization", b =>
+            modelBuilder.Entity("Entities.Concrete.Authority", b =>
                 {
                     b.Navigation("Employees");
                 });

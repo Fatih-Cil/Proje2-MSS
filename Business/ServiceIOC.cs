@@ -18,7 +18,9 @@ namespace Business
 
             services.AddScoped<IEmployeeService, EmployeeManager>();
             services.AddScoped<IEmployeeDal, EfEmployeeDal>();
-            
+            services.AddScoped<IAuthorityService, AuthorityManager>();
+            services.AddScoped<IAuthorityDal, EfAuthorityDal>();
+
         }
     }
 }

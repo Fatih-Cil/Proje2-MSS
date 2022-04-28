@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class Authorization: IEntity
+    public class Authority: IEntity
     {
         [Key]
-        public int AuthId { get; set; }
-        public string AuthName { get; set; }
+        public int AuthorityId { get; set; }
+        public string AuthorityName { get; set; }
         public string Comment { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
