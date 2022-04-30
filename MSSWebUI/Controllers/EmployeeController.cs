@@ -1,5 +1,4 @@
 ﻿using Business.Abstract;
-using Business.FluentValidation;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +11,16 @@ using System.Threading.Tasks;
 
 namespace MSSWebUI.Controllers
 {
-    public class AdminController : Controller
+    public class EmployeeController : Controller
     {
         Employee _employee;
         IEmployeeService _employeeService;
         IAuthorityService _authorityService;
-        IShopService _shopService;
-        
 
-        public AdminController(IEmployeeService employeeService, IAuthorityService authorityService, IShopService shopService)
+        public EmployeeController(IEmployeeService employeeService, IAuthorityService authorityService)
         {
             _employeeService = employeeService;
             _authorityService = authorityService;
-            _shopService = shopService;
-
         }
 
         public bool SessionKontrol()
@@ -43,7 +38,6 @@ namespace MSSWebUI.Controllers
 
                 return false;
             }
-
         }
         public IActionResult Index()
         {
@@ -52,24 +46,12 @@ namespace MSSWebUI.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Index", "Home");
             }
-
+            var employeeDetail = _employeeService.GetEmployeeDetails();
             
-            var _authorty = _authorityService.GetByAuthortiyId(_employee.AuthorityId);
-
-            
-            EmployeeAuthDTO employeeAuthDTO = new EmployeeAuthDTO();
-            employeeAuthDTO.Authority = _authorty;
-            employeeAuthDTO.Employee = _employee;
-
-            return View(employeeAuthDTO);
+            return View(employeeDetail);
         }
 
-       
 
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("index","home");
-        }
+
     }
 }

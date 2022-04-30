@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,16 @@ namespace Business.Concrete
         public void Update(Employee employee)
         {
             _employeeDal.Update(employee);
+        }
+
+        public List<Employee> GetByActiveAll(bool status)
+        {
+            return _employeeDal.GetAll(p => p.Status == status);
+        }
+
+        public List<EmployeeDetailDTO> GetEmployeeDetails()
+        {
+            return _employeeDal.GetEmployeeDatails();
         }
     }
 }

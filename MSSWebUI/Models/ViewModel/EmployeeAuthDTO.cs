@@ -9,6 +9,10 @@ namespace MSSWebUI.Models.ViewModel
     public class EmployeeAuthDTO
     {
         public Employee Employee { get; set; }
+
+        public List<Employee> EmployeeList { get; set; }
+        public List<Authority> AuthorityList { get; set; }
         public Authority Authority { get; set; }
+        public string AuthorityName { get; set; }
     }
 }

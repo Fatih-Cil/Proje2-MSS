@@ -1,6 +1,7 @@
 ﻿using Entities.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace Entities.Concrete
         public string Locasion { get; set; }
         public TimeSpan Opening { get; set; }
         public TimeSpan Closing { get; set; }
+
+       
         public bool Status { get; set; }
 
         public ICollection<EmployeeShop> EmployeeShops { get; set; }

@@ -18,6 +18,11 @@ namespace Business.Concrete
             _authorityDal = authorityDal;
         }
 
+        public List<Authority> GetAll()
+        {
+            return _authorityDal.GetAll();
+        }
+
         public Authority GetByAuthortiyId(int authorityId)
         {
             return _authorityDal.Get(p => p.AuthorityId == authorityId);

@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IEmployeeDal : IEntityRepository<Employee>
     {
+        //dto ile join yapılması sağlanıyor. 
+        List<EmployeeDetailDTO> GetEmployeeDatails();
     }
 }

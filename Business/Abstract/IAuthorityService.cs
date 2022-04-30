@@ -11,5 +11,6 @@ namespace Business.Abstract
     {
 
         Authority GetByAuthortiyId(int authorityId);
+        List<Authority> GetAll();
     }
 }

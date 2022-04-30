@@ -1,0 +1,208 @@
+﻿@using Entities.DTO
+@model List<EmployeeDetailDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="card">
+    <div class="card-header">
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Personel İşlemleri</h5><br />
+
+                </div>
+                <div class="card-block row">
+
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#personelEkle"><i class="icon-plus"></i> Personel Ekle</a>
+                        <div class="modal fade" id="personelEkle" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Personel Ekle</h5>
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form asp-action="AddShop" asp-controller="Shop" method="post">
+                                            <div class="mb-3">
+                                                <input class="form-control" type="text" required="" hidden="" readonly="" name="Status" value="true">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                <input class="form-control" type="text" required="" name="ShopName">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
+                                                <input class="form-control" type="time" required="" name="Opening">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                <input class="form-control" type="time" required="" name="Closing">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                <input class="form-control" type="text" required="" name="Locasion">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
+                                                <button class="btn btn-primary" type="submit">Kaydet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Personel ID</th>
+                                        <th scope="col">Yetki</th>
+                                        <th scope="col">Personel Adı</th>
+                                        <th scope="col">Personel Soyadı</th>
+                                        <th scope="col">Mail</th>
+                                        <th scope="col">Kart Numarası</th>
+                                        <th scope="col">Kayıt Tarihi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        string duzenle = ""; duzenle = "duzenle" + item.EmployeeId;
+                                        string sil = ""; sil = "sil" + item.EmployeeId;
+                                        
+                                    <tr>
+                                        <th scope="row">@item.EmployeeId</th>
+                                        <td>@item.AuthorityName</td>
+
+                                        <td>@item.EmployeeName</td>
+                                        <td>@item.EmployeeSurname</td>
+                                        <td>@item.Mail</td>
+                                        <td>@item.RegisterNumber</td>
+                                        <td>@item.RegisterDate</td>
+                                        <td>
+
+
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                            <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
+
+                                            <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Personel Sil</h5>
+                                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form asp-action="DeleteEmployee" asp-controller="Employee" method="post">
+                                                                <div class="mb-3">
+
+                                                                    <label class="col-form-label" for="recipient-name">Şube ID:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="ShopId" value="@item.EmployeeId">
+                                                                </div>
+
+                                                                @*<div class="mb-3">
+
+                                                                    <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="ShopName" value="@item.ShopName">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
+                                                                    <input class="form-control" type="time" required="" readonly="" name="Opening" value="@item.Opening">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                                    <input class="form-control" type="time" required="" readonly="" name="Closing" value="@item.Closing">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="Locasion" value="@item.Locasion">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                    <button class="btn btn-primary" type="submit">Sil</button>
+                                                                </div>*@
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                            <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Personel Düzenle</h5>
+                                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form asp-action="UpdateEmployee" asp-controller="Employee" method="post">
+                                                                <div class="mb-3">
+
+
+                                                                    <input class="form-control" type="text" hidden="" readonly="" name="Status" value="true">
+                                                                </div>
+                                                                <div class="mb-3">
+
+                                                                    <label class="col-form-label" for="recipient-name">Şube ID:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="ShopId" value="@item.EmployeeId">
+                                                                </div>
+
+                                                                @*<div class="mb-3">
+
+                                                                    <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                    <input class="form-control" type="text" required="" name="ShopName" value="@item.ShopName">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
+                                                                    <input class="form-control" type="time" required="" name="Opening" value="@item.Opening">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                                    <input class="form-control" type="time" required="" name="Closing" value="@item.Closing">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                    <input class="form-control" type="text" required="" name="Locasion" value="@item.Locasion">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                    <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                </div>*@
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
