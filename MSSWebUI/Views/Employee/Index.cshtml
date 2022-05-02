@@ -30,26 +30,44 @@
                                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form asp-action="AddShop" asp-controller="Shop" method="post">
+                                        <form asp-action="AddEmployee" asp-controller="Employee" method="post">
                                             <div class="mb-3">
                                                 <input class="form-control" type="text" required="" hidden="" readonly="" name="Status" value="true">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="col-form-label" for="recipient-name">Şube Adı:</label>
-                                                <input class="form-control" type="text" required="" name="ShopName">
+                                                <label class="form-label">Yetki:</label>
+                                                @*<select class="form-select digits" asp-for="@Model.Authority"
+                                                        asp-items="@(new SelectList(Model.AuthorityList,"AuthorityId","AuthorityName"))">
+                                                    <option>Değer seçin</option>*@
+
+
+                                                @*</select>*@
                                             </div>
                                             <div class="mb-3">
-                                                <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
-                                                <input class="form-control" type="time" required="" name="Opening">
+                                                <label class="col-form-label" for="recipient-name">Personel Adı:</label>
+                                                <input class="form-control" type="text" required="" name="EmployeeName">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
-                                                <input class="form-control" type="time" required="" name="Closing">
+                                                <label class="col-form-label" for="recipient-name">Personel Soyadı:</label>
+                                                <input class="form-control" type="text" required="" name="EmployeeSurname">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="col-form-label" for="recipient-name">Lokasyon:</label>
-                                                <input class="form-control" type="text" required="" name="Locasion">
+                                                <label class="col-form-label" for="recipient-name">E-Posta:</label>
+                                                <input class="form-control" type="email" required="" name="Mail">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Şifre:</label>
+                                                <input class="form-control" type="text" required="" name="Password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Persornel Kart Numarası:</label>
+                                                <input class="form-control" type="text" required="" name="RegisterNumber">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
+                                                <input class="form-control" type="date" required="" name="RegisterDate">
+                                            </div>
+
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
                                                 <button class="btn btn-primary" type="submit">Kaydet</button>
@@ -105,31 +123,28 @@
                                                             <form asp-action="DeleteEmployee" asp-controller="Employee" method="post">
                                                                 <div class="mb-3">
 
-                                                                    <label class="col-form-label" for="recipient-name">Şube ID:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="ShopId" value="@item.EmployeeId">
+                                                                    <label class="col-form-label" for="recipient-name">Personel ID:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="EmployeeId" value="@item.EmployeeId">
                                                                 </div>
 
-                                                                @*<div class="mb-3">
+                                                                <div class="mb-3">
 
-                                                                    <label class="col-form-label" for="recipient-name">Şube Adı:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="ShopName" value="@item.ShopName">
+                                                                    <label class="col-form-label" for="recipient-name">Adı:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="EmployeeName" value="@item.EmployeeName">
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
-                                                                    <input class="form-control" type="time" required="" readonly="" name="Opening" value="@item.Opening">
+                                                                    <label class="col-form-label" for="recipient-name">Soyadı:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="EmployeeSurname" value="@item.EmployeeSurname">
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
-                                                                    <input class="form-control" type="time" required="" readonly="" name="Closing" value="@item.Closing">
+                                                                    <label class="col-form-label" for="recipient-name">Kart Numarası:</label>
+                                                                    <input class="form-control" type="text" required="" readonly="" name="RegisterNumber" value="@item.RegisterNumber">
                                                                 </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Lokasyon:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="Locasion" value="@item.Locasion">
-                                                                </div>
+                                                                
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
                                                                     <button class="btn btn-primary" type="submit">Sil</button>
-                                                                </div>*@
+                                                                </div>
                                                             </form>
                                                         </div>
 

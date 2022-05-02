@@ -22,6 +22,8 @@ namespace Business
             services.AddScoped<IAuthorityDal, EfAuthorityDal>();
             services.AddScoped<IShopService, ShopManager>();
             services.AddScoped<IShopDal, EfShopDal>();
+            services.AddScoped<IShiftService, ShiftManager>();
+            services.AddScoped<IShiftDal, EfShiftDal>();
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Business.Abstract;
-using Business.FluentValidation;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MSSWebUI.Models.ViewModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,16 +10,14 @@ using System.Threading.Tasks;
 
 namespace MSSWebUI.Controllers
 {
-    public class EmployeeController : Controller
+    public class ShiftController : Controller
     {
         Employee _employee;
-        IEmployeeService _employeeService;
-        IAuthorityService _authorityService;
+        IShiftService _shiftService;
 
-        public EmployeeController(IEmployeeService employeeService, IAuthorityService authorityService)
+        public ShiftController(IShiftService shiftService)
         {
-            _employeeService = employeeService;
-            _authorityService = authorityService;
+            _shiftService = shiftService;
         }
 
         public bool SessionKontrol()
@@ -47,16 +43,16 @@ namespace MSSWebUI.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Index", "Home");
             }
-            var employeeDetail = _employeeService.GetEmployeeDetails();
-           
-            return View(employeeDetail);
+            var shift = _shiftService.GetByActiveAll(true);
+            
+            return View(shift);
         }
 
         [HttpPost]
-        public IActionResult Addemployee(EmployeeAuthDTO employeeAutDto)
+        public IActionResult AddShift(Shift shift)
         {
-            //EmployeeValidator validationRules = new EmployeeValidator();
-            ////var result = validationRules.Validate(employee);
+            //ShopValidator validationRules = new ShopValidator();
+            //var result = validationRules.Validate(shop);
             //if (!result.IsValid)
             //{
             //    foreach (var error in result.Errors)
@@ -65,28 +61,39 @@ namespace MSSWebUI.Controllers
             //    }
             //    return Redirect("Index");
             //}
-            
-
-           // _employeeService.Add(employee);
+            _shiftService.Add(shift);
             return Redirect("Index");
         }
 
         [HttpPost]
-        public IActionResult DeleteEmployee(Employee employee)
+        public IActionResult DeleteShift(Shift shift)
         {
-            var value = _employeeService.GetByEmployeeId(employee.EmployeeId);
+            var value = _shiftService.GetByShiftId(shift.ShiftId);
             value.Status = false;
             try
             {
-                _employeeService.Update(value);
+                _shiftService.Update(value);
             }
             catch (Exception)
             {
 
             }
-            return RedirectToAction("Index", "Employee");
+            return RedirectToAction("Index", "Shift");
         }
 
+        [HttpPost]
+        public IActionResult UpdateShift(Shift shift)
+        {
 
+            try
+            {
+                _shiftService.Update(shift);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Shift");
+        }
     }
 }

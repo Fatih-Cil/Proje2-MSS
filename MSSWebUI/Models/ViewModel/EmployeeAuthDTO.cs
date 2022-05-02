@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MSSWebUI.Models.ViewModel
     {
         public Employee Employee { get; set; }
 
-        public List<Employee> EmployeeList { get; set; }
+        public List<EmployeeDetailDTO> EmployeeList { get; set; }
         public List<Authority> AuthorityList { get; set; }
         public Authority Authority { get; set; }
         public string AuthorityName { get; set; }
