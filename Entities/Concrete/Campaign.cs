@@ -1,6 +1,7 @@
 ﻿using Entities.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace Entities.Concrete
         public string CampaignName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        [DefaultValue("true")]
+        public bool Status { get; set; }
 
         public ICollection<ShopCampaign> ShopCampaigns { get; set; }
 

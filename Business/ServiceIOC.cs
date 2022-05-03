@@ -24,6 +24,8 @@ namespace Business
             services.AddScoped<IShopDal, EfShopDal>();
             services.AddScoped<IShiftService, ShiftManager>();
             services.AddScoped<IShiftDal, EfShiftDal>();
+            services.AddScoped<ICampaignService, CampaignManager>();
+            services.AddScoped<ICampaignDal, EfCampaignDal>();
         }
     }
 }

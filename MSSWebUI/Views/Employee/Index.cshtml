@@ -1,5 +1,5 @@
-﻿@using Entities.DTO
-@model List<EmployeeDetailDTO>
+﻿
+@model MSSWebUI.Models.DTO.AddEmployeeDTO
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -21,7 +21,7 @@
 
                     <div class="col-sm-12 col-lg-12 col-xl-12">
 
-                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#personelEkle"><i class="icon-plus"></i> Personel Ekle</a>
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#personelEkle"><i class="icon-plus"></i> Personel Ekle</a> <span class="font-danger">@Html.ValidationMessage("AuthorityId")</span>
                         <div class="modal fade" id="personelEkle" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -32,40 +32,40 @@
                                     <div class="modal-body">
                                         <form asp-action="AddEmployee" asp-controller="Employee" method="post">
                                             <div class="mb-3">
-                                                <input class="form-control" type="text" required="" hidden="" readonly="" name="Status" value="true">
+                                                <input class="form-control" type="text" required="" hidden="" readonly="" asp-for="@Model.Employee.Status" value="true">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Yetki:</label>
-                                                @*<select class="form-select digits" asp-for="@Model.Authority"
+                                                <select class="form-select digits" required="" asp-for="@Model.Authority.AuthorityId"
                                                         asp-items="@(new SelectList(Model.AuthorityList,"AuthorityId","AuthorityName"))">
-                                                    <option>Değer seçin</option>*@
+                                                    <option>Değer seçin</option>
 
 
-                                                @*</select>*@
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">Personel Adı:</label>
-                                                <input class="form-control" type="text" required="" name="EmployeeName">
+                                                <input class="form-control" type="text" required="" asp-for="@Model.Employee.EmployeeName">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">Personel Soyadı:</label>
-                                                <input class="form-control" type="text" required="" name="EmployeeSurname">
+                                                <input class="form-control" type="text" required="" asp-for="@Model.Employee.EmployeeSurname">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">E-Posta:</label>
-                                                <input class="form-control" type="email" required="" name="Mail">
+                                                <input class="form-control" type="email" required="" asp-for="@Model.Employee.Mail">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">Şifre:</label>
-                                                <input class="form-control" type="text" required="" name="Password">
+                                                <input class="form-control" type="text" required="" asp-for="@Model.Employee.Password">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">Persornel Kart Numarası:</label>
-                                                <input class="form-control" type="text" required="" name="RegisterNumber">
+                                                <input class="form-control" type="text" required="" asp-for="@Model.Employee.RegisterNumber">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
-                                                <input class="form-control" type="date" required="" name="RegisterDate">
+                                                <input class="form-control" type="date" required="" asp-for="@Model.Employee.RegisterDate">
                                             </div>
 
                                             <div class="modal-footer">
@@ -92,119 +92,136 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.EmployeeDetail.OrderBy(x => x.EmployeeName))
                                     {
                                         string duzenle = ""; duzenle = "duzenle" + item.EmployeeId;
                                         string sil = ""; sil = "sil" + item.EmployeeId;
-                                        
-                                    <tr>
-                                        <th scope="row">@item.EmployeeId</th>
-                                        <td>@item.AuthorityName</td>
 
-                                        <td>@item.EmployeeName</td>
-                                        <td>@item.EmployeeSurname</td>
-                                        <td>@item.Mail</td>
-                                        <td>@item.RegisterNumber</td>
-                                        <td>@item.RegisterDate</td>
-                                        <td>
+                                        <tr>
+                                            <th scope="row">@item.EmployeeId</th>
+                                            <td>@item.AuthorityName</td>
+
+                                            <td>@item.EmployeeName</td>
+                                            <td>@item.EmployeeSurname</td>
+                                            <td>@item.Mail</td>
+                                            <td>@item.RegisterNumber</td>
+                                            <td>@item.RegisterDate.ToShortDateString()</td>
+                                            <td>
 
 
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
-                                            <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
 
-                                            <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Personel Sil</h5>
-                                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Personel Sil</h5>
+                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form asp-action="DeleteEmployee" asp-controller="Employee" method="post">
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Personel ID:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.EmployeeId" value="@item.EmployeeId">
+                                                                    </div>
+
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Adı:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.EmployeeName" value="@item.EmployeeName">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Soyadı:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.EmployeeSurname" value="@item.EmployeeSurname">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Kart Numarası:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.RegisterNumber" value="@item.RegisterNumber">
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                        <button class="btn btn-primary" type="submit">Sil</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <form asp-action="DeleteEmployee" asp-controller="Employee" method="post">
-                                                                <div class="mb-3">
-
-                                                                    <label class="col-form-label" for="recipient-name">Personel ID:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="EmployeeId" value="@item.EmployeeId">
-                                                                </div>
-
-                                                                <div class="mb-3">
-
-                                                                    <label class="col-form-label" for="recipient-name">Adı:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="EmployeeName" value="@item.EmployeeName">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Soyadı:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="EmployeeSurname" value="@item.EmployeeSurname">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Kart Numarası:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="RegisterNumber" value="@item.RegisterNumber">
-                                                                </div>
-                                                                
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
-                                                                    <button class="btn btn-primary" type="submit">Sil</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-
                                                     </div>
                                                 </div>
-                                            </div>
 
 
-                                            @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
-                                            <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Personel Düzenle</h5>
-                                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                                <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Personel Düzenle</h5>
+                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form asp-action="UpdateEmployee" asp-controller="Employee" method="post">
+                                                                    <div class="mb-3">
+                                                                        <input class="form-control" type="text" hidden="" readonly="" asp-for="@Model.Employee.Status" value="true">
+                                                                    </div>
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Personel ID:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.EmployeeId" value="@item.EmployeeId">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Yetki:</label>
+                                                                        <select class="form-select digits" required="" asp-for="@Model.Authority.AuthorityId"
+                                                                                asp-items="@(new SelectList(Model.AuthorityList,"AuthorityId","AuthorityName"))">
+                                                                            <option selected="@item.AuthorityName"></option>
+
+
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="mb-3">
+
+                                                                        <label class="col-form-label" for="recipient-name">Adı:</label>
+                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.EmployeeName" value="@item.EmployeeName">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Soyadı:</label>
+                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.EmployeeSurname" value="@item.EmployeeSurname">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">E-Posta:</label>
+                                                                        <input class="form-control" type="email" required="" asp-for="@Model.Employee.Mail" value="@item.Mail">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Şifre:</label>
+                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.Password" value="@item.Password">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Kart Numarası:</label>
+                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.RegisterNumber" value="@item.RegisterNumber">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.RegisterDate" value="@item.RegisterDate.ToShortDateString()">
+                                                                    </div>
+
+
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                        <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <form asp-action="UpdateEmployee" asp-controller="Employee" method="post">
-                                                                <div class="mb-3">
-
-
-                                                                    <input class="form-control" type="text" hidden="" readonly="" name="Status" value="true">
-                                                                </div>
-                                                                <div class="mb-3">
-
-                                                                    <label class="col-form-label" for="recipient-name">Şube ID:</label>
-                                                                    <input class="form-control" type="text" required="" readonly="" name="ShopId" value="@item.EmployeeId">
-                                                                </div>
-
-                                                                @*<div class="mb-3">
-
-                                                                    <label class="col-form-label" for="recipient-name">Şube Adı:</label>
-                                                                    <input class="form-control" type="text" required="" name="ShopName" value="@item.ShopName">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Açılış Saati:</label>
-                                                                    <input class="form-control" type="time" required="" name="Opening" value="@item.Opening">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
-                                                                    <input class="form-control" type="time" required="" name="Closing" value="@item.Closing">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label" for="recipient-name">Lokasyon:</label>
-                                                                    <input class="form-control" type="text" required="" name="Locasion" value="@item.Locasion">
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
-                                                                    <button class="btn btn-primary" type="submit">Güncelle</button>
-                                                                </div>*@
-                                                            </form>
-                                                        </div>
-
                                                     </div>
                                                 </div>
-                                            </div>
 
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
 
                                     }

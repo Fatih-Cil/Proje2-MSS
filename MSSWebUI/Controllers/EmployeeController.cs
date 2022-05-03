@@ -3,6 +3,7 @@ using Business.FluentValidation;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MSSWebUI.Models.DTO;
 using MSSWebUI.Models.ViewModel;
 using Newtonsoft.Json;
 using System;
@@ -47,27 +48,35 @@ namespace MSSWebUI.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Index", "Home");
             }
-            var employeeDetail = _employeeService.GetEmployeeDetails();
            
-            return View(employeeDetail);
+            AddEmployeeDTO addEmployeeDTO = new AddEmployeeDTO();
+            addEmployeeDTO.EmployeeDetail = _employeeService.GetEmployeeDetails();
+            addEmployeeDTO.AuthorityList= _authorityService.GetAll();
+            return View(addEmployeeDTO);
         }
 
         [HttpPost]
-        public IActionResult Addemployee(EmployeeAuthDTO employeeAutDto)
+        public IActionResult Addemployee(AddEmployeeDTO addEmployeeDTO)
         {
-            //EmployeeValidator validationRules = new EmployeeValidator();
-            ////var result = validationRules.Validate(employee);
-            //if (!result.IsValid)
-            //{
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return Redirect("Index");
-            //}
-            
+            EmployeeValidator validationRules = new EmployeeValidator();
+            var result = validationRules.Validate(addEmployeeDTO.Employee);
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return Redirect("Index");
+            }
+            else if (addEmployeeDTO.Authority.AuthorityId<1)
+            {
+                
+                ModelState.AddModelError("AuthorityId", "Yetki seçilmediği için kayıt yapılamadı.");
+                return Redirect("Index");
+            }
+            addEmployeeDTO.Employee.AuthorityId = addEmployeeDTO.Authority.AuthorityId;
 
-           // _employeeService.Add(employee);
+            _employeeService.Add(addEmployeeDTO.Employee);
             return Redirect("Index");
         }
 
@@ -87,6 +96,38 @@ namespace MSSWebUI.Controllers
             return RedirectToAction("Index", "Employee");
         }
 
+        [HttpPost]
+        public IActionResult UpdateEmployee(AddEmployeeDTO addEmployeeDTO)
+        {
+            EmployeeValidator validationRules = new EmployeeValidator();
+            var result = validationRules.Validate(addEmployeeDTO.Employee);
+
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return Redirect("Index");
+            }
+            else if (addEmployeeDTO.Authority.AuthorityId < 1)
+            {
+
+                ModelState.AddModelError("AuthorityId", "Yetki seçilmediği için kayıt yapılamadı.");
+                return Redirect("Index");
+            }
+            addEmployeeDTO.Employee.AuthorityId = addEmployeeDTO.Authority.AuthorityId;
+
+            try
+            {
+                _employeeService.Update(addEmployeeDTO.Employee);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Employee");
+        }
 
     }
 }
