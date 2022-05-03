@@ -47,5 +47,53 @@ namespace MSSWebUI.Controllers
 
             return View(campaign);
         }
+
+        [HttpPost]
+        public IActionResult AddCampaign(Campaign campaign)
+        {
+            //ShopValidator validationRules = new ShopValidator();
+            //var result = validationRules.Validate(shop);
+            //if (!result.IsValid)
+            //{
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            //    }
+            //    return Redirect("Index");
+            //}
+            _campaignService.Add(campaign);
+            return Redirect("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCampaign(Campaign campaign)
+        {
+            var value = _campaignService.GetByCampaignId(campaign.CampaignId);
+            value.Status = false;
+            try
+            {
+                _campaignService.Update(value);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Campaign");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCampaign(Campaign campaign)
+        {
+
+            try
+            {
+                _campaignService.Update(campaign);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Campaign");
+        }
     }
 }

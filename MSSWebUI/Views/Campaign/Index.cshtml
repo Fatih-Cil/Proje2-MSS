@@ -77,8 +77,8 @@
                                         <tr>
                                             <th scope="row">@item.CampaignId</th>
                                             <td>@item.CampaignName</td>
-                                            <td>@item.StartDate</td>
-                                            <td>@item.EndDate</td>
+                                            <td>@item.StartDate.ToShortDateString()</td>
+                                            <td>@item.EndDate.ToShortDateString()</td>
 
                                             <td>
 
@@ -108,11 +108,11 @@
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="col-form-label" for="recipient-name">Başlangıç:</label>
-                                                                        <input class="form-control" type="date" required="" readonly="" name="StartDate" value="@item.StartDate">
+                                                                        <input class="form-control" type="date" required="" readonly="" name="StartDate" value="@item.StartDate.ToString("yyyy-MM-dd")">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="col-form-label" for="recipient-name">Bitiş:</label>
-                                                                        <input class="form-control" type="date" required="" readonly="" name="EndDate" value="@item.EndDate">
+                                                                        <input class="form-control" type="date" required="" readonly="" name="EndDate" value="@item.EndDate.ToString("yyyy-MM-dd")">
                                                                     </div>
 
                                                                     <div class="modal-footer">
@@ -155,11 +155,11 @@
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="col-form-label" for="recipient-name">Başlangıç:</label>
-                                                                        <input class="form-control" type="date" required="" name="StartDate" value="@item.StartDate">
+                                                                        <input class="form-control" type="date"  required="" name="StartDate" value="@item.StartDate.ToString("yyyy-MM-dd")">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="col-form-label" for="recipient-name">Bitiş:</label>
-                                                                        <input class="form-control" type="date" required="" name="EndDate" value="@item.EndDate">
+                                                                        <input class="form-control" type="date" required="" name="EndDate" value="@item.EndDate.ToString("yyyy-MM-dd")">
                                                                     </div>
 
                                                                     <div class="modal-footer">
