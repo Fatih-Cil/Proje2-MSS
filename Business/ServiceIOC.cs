@@ -26,6 +26,8 @@ namespace Business
             services.AddScoped<IShiftDal, EfShiftDal>();
             services.AddScoped<ICampaignService, CampaignManager>();
             services.AddScoped<ICampaignDal, EfCampaignDal>();
+            services.AddScoped<IFinanceService, FinanceManager>();
+            services.AddScoped<IFinanceDal, EfFinanceDal>();
         }
     }
 }
