@@ -49,8 +49,83 @@ namespace MSSWebUI.Controllers
 
             AddFinanceShopDTO addFinanceShopDTO = new AddFinanceShopDTO();
             addFinanceShopDTO.FinanceDetails = _financeService.GetFinanceDetails();
-            addFinanceShopDTO.ShopList= _shopService.GetAll();
+            addFinanceShopDTO.ShopList= _shopService.GetByActiveAll(true);
             return View(addFinanceShopDTO);
         }
+
+        [HttpPost]
+        public IActionResult AddFinance(AddFinanceShopDTO addFinanceShopDTO)
+        {
+            //EmployeeValidator validationRules = new EmployeeValidator();
+            //var result = validationRules.Validate(addEmployeeDTO.Employee);
+            //if (!result.IsValid)
+            //{
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            //    }
+            //    return Redirect("Index");
+            //}
+            //else
+            if (addFinanceShopDTO.Shop.ShopId< 1)
+            {
+
+                ModelState.AddModelError("ShopId", "Şube seçilmediği için kayıt yapılamadı.");
+                return Redirect("Index");
+            }
+            addFinanceShopDTO.Finance.ShopId= addFinanceShopDTO.Shop.ShopId;
+
+            _financeService.Add(addFinanceShopDTO.Finance);
+            return Redirect("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFinance(Finance finance)
+        {
+            
+            try
+            {
+                _financeService.Delete(finance);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Finance");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateFinance(AddFinanceShopDTO addFinanceShopDTO)
+        {
+            //EmployeeValidator validationRules = new EmployeeValidator();
+            //var result = validationRules.Validate(addEmployeeDTO.Employee);
+
+            //if (!result.IsValid)
+            //{
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            //    }
+            //    return Redirect("Index");
+            //}
+            //else if (addEmployeeDTO.Authority.AuthorityId < 1)
+            //{
+
+            //    ModelState.AddModelError("AuthorityId", "Yetki seçilmediği için kayıt yapılamadı.");
+            //    return Redirect("Index");
+            //}
+            addFinanceShopDTO.Finance.ShopId= addFinanceShopDTO.Shop.ShopId;
+
+            try
+            {
+                _financeService.Update(addFinanceShopDTO.Finance);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Finance");
+        }
+
     }
 }

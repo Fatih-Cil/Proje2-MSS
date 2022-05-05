@@ -33,7 +33,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Şube:</label>
                                                 <select class="form-select digits" required="" asp-for="@Model.Shop.ShopId"
-                                                        asp-items="@(new SelectList(Model.ShopList,"ShopId","ShopName"))">
+                                                        asp-items="@(new SelectList(Model.ShopList,"ShopId","ShopName","-","Locasion"))">
                                                     <option>Şube seçin</option>
 
 
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="recipient-name">Günlük Ciro:</label>
-                                                <input class="form-control" type="text" required="" asp-for="@Model.Finance.DailySalesEarning">
+                                                <input class="form-control" type="number" required="" asp-for="@Model.Finance.DailySalesEarning">
                                             </div>
 
                                             <div class="modal-footer">
@@ -68,9 +68,10 @@
                                     <tr>
                                         <th scope="col">Finance ID</th>
                                         <th scope="col">Şube</th>
-                                        <th scope="col">Tarih</th>
+                                        <th scope="col">Lokasyon</th>
                                         <th scope="col">Satış Adedi</th>
                                         <th scope="col">Ciro</th>
+                                        <th scope="col">Tarih</th>
                                         <th scope="col">İşlem</th>
                                     </tr>
                                 </thead>
@@ -83,11 +84,10 @@
                                         <tr>
                                             <th scope="row">@item.FinanceId</th>
                                             <td>@item.ShopName</td>
-
-                                            <td>@item.SalesDate</td>
+                                            <td>@item.Locasion</td>
                                             <td>@item.DailySalesAmount</td>
                                             <td>@item.DailySalesEarning</td>
-                                            
+                                            <td>@item.SalesDate.ToShortDateString()</td>
                                             <td>
 
 
@@ -115,10 +115,15 @@
                                                                         <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
                                                                     </div>
                                                                     <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
-                                                                        <input class="form-control" type="date" required="" readonly="" asp-for="@Model.Finance.SalesDate" value="@item.SalesDate">
+
+                                                                        <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.Locasion" value="@item.Locasion">
                                                                     </div>
-                                                                    
+                                                                    <div class="mb-3">
+                                                                        <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
+                                                                        <input class="form-control" type="date" required="" readonly="" asp-for="@Model.Finance.SalesDate" value="@item.SalesDate.ToString("yyyy-MM-dd")">
+                                                                    </div>
+
 
                                                                     <div class="modal-footer">
                                                                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
@@ -133,70 +138,56 @@
 
 
                                                 @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
-                                                @*<div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Personel Düzenle</h5>
-                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Finans Kaydı Düzenle</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="UpdateFinance" asp-controller="Finance" method="post">
+                                                                        
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Finans ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Finance.FinanceId" value="@item.FinanceId">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label">Şube:</label>
+                                                                            <select class="form-select digits" required="" asp-for="@Model.Shop.ShopId"
+                                                                                    asp-items="@(new SelectList(Model.ShopList,"ShopId","ShopName","-","Locasion"))">
+                                                                                <option selected="@item.ShopName"></option>
+
+
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Tarih:</label>
+                                                                            <input class="form-control" type="date" required="" asp-for="@Model.Finance.SalesDate" value="@item.SalesDate.ToString("yyyy-MM-dd")">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Satış Adedi:</label>
+                                                                            <input class="form-control" type="number" required="" asp-for="@Model.Finance.DailySalesAmount" value="@item.DailySalesAmount">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Ciro:</label>
+                                                                            <input class="form-control" type="number" required="" asp-for="@Model.Finance.DailySalesEarning" value="@Convert.ToUInt16(item.DailySalesEarning)">
+                                                                        </div>
+                                                                       
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form asp-action="UpdateEmployee" asp-controller="Employee" method="post">
-                                                                    <div class="mb-3">
-                                                                        <input class="form-control" type="text" hidden="" readonly="" asp-for="@Model.Employee.Status" value="true">
-                                                                    </div>
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Personel ID:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.EmployeeId" value="@item.EmployeeId">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Yetki:</label>
-                                                                        <select class="form-select digits" required="" asp-for="@Model.Authority.AuthorityId"
-                                                                                asp-items="@(new SelectList(Model.AuthorityList,"AuthorityId","AuthorityName"))">
-                                                                            <option selected="@item.AuthorityName"></option>
-
-
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Adı:</label>
-                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.EmployeeName" value="@item.EmployeeName">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Soyadı:</label>
-                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.EmployeeSurname" value="@item.EmployeeSurname">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">E-Posta:</label>
-                                                                        <input class="form-control" type="email" required="" asp-for="@Model.Employee.Mail" value="@item.Mail">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Şifre:</label>
-                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.Password" value="@item.Password">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Kart Numarası:</label>
-                                                                        <input class="form-control" type="text" required="" asp-for="@Model.Employee.RegisterNumber" value="@item.RegisterNumber">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Employee.RegisterDate" value="@item.RegisterDate.ToShortDateString()">
-                                                                    </div>
-
-
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
-                                                                        <button class="btn btn-primary" type="submit">Güncelle</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
                                                         </div>
                                                     </div>
-                                                </div>*@
 
 
                                             </td>
