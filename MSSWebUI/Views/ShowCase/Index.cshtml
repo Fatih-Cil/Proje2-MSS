@@ -1,8 +1,66 @@
-﻿
+﻿@model MSSWebUI.Models.DTO.AddShowCaseShopDTO
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Show Case Index</h1>
+<div class="card">
+    <div class="card-header">
 
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Vitrin İşlemleri</h5><br />
+
+                </div>
+                <div class="card-block row">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+                        <a class="btn btn-primary" asp-action="AddShowCase" asp-controller="ShowCase"></i> Vitrin Ekle</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display" id="basic-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Vitrin ID</th>
+                                            <th scope="col">Şube</th>
+                                            <th scope="col">Lokasyon</th>
+                                            <th scope="col">Başlangıç Tarihi</th>
+                                            <th scope="col">Bitiş Tarihi</th>
+                                            <th scope="col">Url</th>
+                                            <th scope="col">İşlem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ShowCaseDetails.OrderByDescending(x => x.ShowCaseId))
+                                        {
+                                            string duzenle = ""; duzenle = "duzenle" + item.ShowCaseId;
+                                            string sil = ""; sil = "sil" + item.ShowCaseId;
+
+                                            <tr>
+                                                <th scope="row">@item.ShowCaseId</th>
+                                                <td>@item.ShopName</td>
+                                                <td>@item.Locasion</td>
+                                                <td>@item.StartDate.ToShortDateString()</td>
+                                                <td>@item.EndDate.ToShortDateString()</td>
+                                                <td>@item.Url</td>
+                                                <td>
+                                                    <a class="btn btn-warning" asp-action="AddShowCase" asp-controller="ShowCase" name="@item.ShowCaseId"><i class="icon-pencil"></i> Düzenle</a>
+                                                </td>
+
+                                            </tr>
+
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

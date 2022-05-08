@@ -1,5 +1,6 @@
 ﻿using Entities.Concrete;
 using Entities.DTO;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace MSSWebUI.Models.DTO
         public ShowCase ShowCase { get; set; }
         public Shop Shop { get; set; }
         public int ShopId { get; set; }
+        public IFormFile File{ get; set; }
     }
 }

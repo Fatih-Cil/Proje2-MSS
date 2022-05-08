@@ -28,12 +28,9 @@ namespace DataAccess.Concrete
                                  ShopName = shop.ShopName,
                                  Locasion = shop.Locasion,
                                  StartDate = showCase.StartDate,
-                                 EndDate = showCase.EndDate,
-                                 Url1 = showCase.Url1,
-                                 Url2 = showCase.Url2,
-                                 Url3 = showCase.Url3,
-                                 Url4 = showCase.Url4,
-                                 Url5 = showCase.Url5
+                                 EndDate=showCase.EndDate,
+                                 Url = showCase.Url,
+
 
 
                              };

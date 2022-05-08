@@ -14,11 +14,8 @@ namespace Entities.Concrete
         public int ShowCaseId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string Url1 { get; set; }
-        public string Url2 { get; set; }
-        public string Url3 { get; set; }
-        public string Url4 { get; set; }
-        public string Url5 { get; set; }
+        public string Url { get; set; }
+     
 
         public int ShopId { get; set; }
         public virtual Shop Shop { get; set; }

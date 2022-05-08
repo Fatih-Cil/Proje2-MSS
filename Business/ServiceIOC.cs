@@ -28,6 +28,8 @@ namespace Business
             services.AddScoped<ICampaignDal, EfCampaignDal>();
             services.AddScoped<IFinanceService, FinanceManager>();
             services.AddScoped<IFinanceDal, EfFinanceDal>();
+            services.AddScoped<IShowCaseService, ShowCaseManager>();
+            services.AddScoped<IShowCaseDal, EfShowCaseDal>();
         }
     }
 }

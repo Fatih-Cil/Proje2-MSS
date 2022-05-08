@@ -1,0 +1,64 @@
+﻿@model MSSWebUI.Models.DTO.AddShowCaseShopDTO
+@{
+    ViewData["Title"] = "AddShowCase";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Vitrin Ekle-Şube Seçim Ekranı</h5><br />
+
+                </div>
+                <div class="card-block row">
+
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Vitrin ID</th>
+                                        <th scope="col">Lokasyon</th>
+                                        <th scope="col">Şube</th>
+
+
+                                        <th scope="col">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ShopList.OrderBy(x => x.Locasion))
+                                    {
+                                        string duzenle = ""; duzenle = "duzenle" + item.ShopId;
+                                        string sil = ""; sil = "sil" + item.ShopId;
+
+                                        <tr>
+                                            <th scope="row">@item.ShopId</th>
+                                            <td>@item.Locasion</td>
+                                            <td>@item.ShopName</td>
+
+
+                                            <td>
+                                                <a class="btn btn-warning" href="@Url.Action("AddImage",new { id = item.ShopId })"><i class="icon-image"></i> Görsel Ekle</a>
+                                            </td>
+
+                                        </tr>
+
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

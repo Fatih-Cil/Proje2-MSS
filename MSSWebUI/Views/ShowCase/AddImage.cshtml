@@ -1,0 +1,49 @@
+﻿@model MSSWebUI.Models.DTO.AddShowCaseShopDTO
+@{
+    ViewData["Title"] = "AddImage";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h5>Görsel Ekle (@Model.Shop.Locasion -@Model.Shop.ShopName)</h5>
+                </div>
+                <div class="card-body">
+                    <form id="uploadForm" asp-action="/ShowCase/Upload/@Model.Shop.ShopId" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+                        
+                        <div class="form-group">
+                           
+                            <label class="control-label col-md-2" for="first-name">
+
+                                Upload Photo <span class="required">*</span>
+
+                            </label>
+                            
+                            <div class="col-md-6" id="dropzone">
+
+                                <div action="/ShowCase/Upload/@Model.Shop.ShopId" class="dropzone" id="@Model.Shop.ShopId">
+
+                                    Drop files here or click to upload.<br>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/assets/js/dropzone/dropzone-min.js"></script>
