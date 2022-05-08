@@ -48,7 +48,7 @@
                                                 <label class="col-form-label" for="recipient-name">Çıkış Saati:</label>
                                                 <input class="form-control" type="time" required="" name="CheckOut">
                                             </div>
-                                            
+
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
                                                 <button class="btn btn-primary" type="submit">Kaydet</button>
@@ -59,130 +59,132 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Vardiya ID</th>
-                                        <th scope="col">Vardiya Adı</th>
-                                        <th scope="col">Giriş</th>
-                                        <th scope="col">Çıkış</th>
-                                                                                <th scope="col">İşlem</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.OrderBy(x=>x.CheckIn))
-                                    {
-                                        string duzenle = ""; duzenle = "duzenle" + item.ShiftId;
-                                        string sil = ""; sil = "sil" + item.ShiftId;
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display" id="basic-2">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">@item.ShiftId</th>
-                                            <td>@item.ShiftName</td>
-                                            <td>@item.CheckIn</td>
-                                            <td>@item.CheckOut</td>
-                                            
-                                            <td>
-
-
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
-                                                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
-
-                                                <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Vardiya Sil</h5>
-                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form asp-action="DeleteShift" asp-controller="Shift" method="post">
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Vardiya ID:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" name="ShiftId" value="@item.ShiftId">
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Vardiya Adı:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" name="ShiftName" value="@item.ShiftName">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Giriş:</label>
-                                                                        <input class="form-control" type="time" required="" readonly="" name="CheckIn" value="@item.CheckIn">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Çıkış:</label>
-                                                                        <input class="form-control" type="time" required="" readonly="" name="CheckOut" value="@item.CheckOut">
-                                                                    </div>
-                                                                    
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
-                                                                        <button class="btn btn-primary" type="submit">Sil</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
-                                                <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Vardiya Düzenle</h5>
-                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form asp-action="UpdateShift" asp-controller="Shift" method="post">
-                                                                    <div class="mb-3">
-
-
-                                                                        <input class="form-control" type="text" hidden="" readonly="" name="Status" value="true">
-                                                                    </div>
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Vardiya ID:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" name="ShiftId" value="@item.ShiftId">
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Vardiya Adı:</label>
-                                                                        <input class="form-control" type="text" required="" name="ShiftName" value="@item.ShiftName">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Giriş:</label>
-                                                                        <input class="form-control" type="time" required="" name="CheckIn" value="@item.CheckIn">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
-                                                                        <input class="form-control" type="time" required="" name="CheckOut" value="@item.CheckOut">
-                                                                    </div>
-                                                                    
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
-                                                                        <button class="btn btn-primary" type="submit">Güncelle</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </td>
+                                            <th scope="col">Vardiya ID</th>
+                                            <th scope="col">Vardiya Adı</th>
+                                            <th scope="col">Giriş</th>
+                                            <th scope="col">Çıkış</th>
+                                            <th scope="col">İşlem</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderBy(x => x.CheckIn))
+                                        {
+                                            string duzenle = ""; duzenle = "duzenle" + item.ShiftId;
+                                            string sil = ""; sil = "sil" + item.ShiftId;
+                                            <tr>
+                                                <th scope="row">@item.ShiftId</th>
+                                                <td>@item.ShiftName</td>
+                                                <td>@item.CheckIn</td>
+                                                <td>@item.CheckOut</td>
+
+                                                <td>
 
 
-                                    }
+                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
 
-                                </tbody>
-                            </table>
+                                                    <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Vardiya Sil</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="DeleteShift" asp-controller="Shift" method="post">
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Vardiya ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" name="ShiftId" value="@item.ShiftId">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Vardiya Adı:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" name="ShiftName" value="@item.ShiftName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Giriş:</label>
+                                                                            <input class="form-control" type="time" required="" readonly="" name="CheckIn" value="@item.CheckIn">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Çıkış:</label>
+                                                                            <input class="form-control" type="time" required="" readonly="" name="CheckOut" value="@item.CheckOut">
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Sil</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                                    <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Vardiya Düzenle</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="UpdateShift" asp-controller="Shift" method="post">
+                                                                        <div class="mb-3">
+
+
+                                                                            <input class="form-control" type="text" hidden="" readonly="" name="Status" value="true">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Vardiya ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" name="ShiftId" value="@item.ShiftId">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Vardiya Adı:</label>
+                                                                            <input class="form-control" type="text" required="" name="ShiftName" value="@item.ShiftName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Giriş:</label>
+                                                                            <input class="form-control" type="time" required="" name="CheckIn" value="@item.CheckIn">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Kapanış Saati:</label>
+                                                                            <input class="form-control" type="time" required="" name="CheckOut" value="@item.CheckOut">
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                            </tr>
+
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

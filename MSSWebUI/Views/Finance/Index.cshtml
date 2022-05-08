@@ -62,83 +62,84 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Finance ID</th>
-                                        <th scope="col">Şube</th>
-                                        <th scope="col">Lokasyon</th>
-                                        <th scope="col">Satış Adedi</th>
-                                        <th scope="col">Ciro</th>
-                                        <th scope="col">Tarih</th>
-                                        <th scope="col">İşlem</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.FinanceDetails.OrderBy(x => x.SalesDate))
-                                    {
-                                        string duzenle = ""; duzenle = "duzenle" + item.FinanceId;
-                                        string sil = ""; sil = "sil" + item.FinanceId;
-
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display" id="basic-2">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">@item.FinanceId</th>
-                                            <td>@item.ShopName</td>
-                                            <td>@item.Locasion</td>
-                                            <td>@item.DailySalesAmount</td>
-                                            <td>@item.DailySalesEarning</td>
-                                            <td>@item.SalesDate.ToShortDateString()</td>
-                                            <td>
+                                            <th scope="col">Finance ID</th>
+                                            <th scope="col">Şube</th>
+                                            <th scope="col">Lokasyon</th>
+                                            <th scope="col">Satış Adedi</th>
+                                            <th scope="col">Ciro</th>
+                                            <th scope="col">Tarih</th>
+                                            <th scope="col">İşlem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.FinanceDetails.OrderBy(x => x.SalesDate))
+                                        {
+                                            string duzenle = ""; duzenle = "duzenle" + item.FinanceId;
+                                            string sil = ""; sil = "sil" + item.FinanceId;
+
+                                            <tr>
+                                                <th scope="row">@item.FinanceId</th>
+                                                <td>@item.ShopName</td>
+                                                <td>@item.Locasion</td>
+                                                <td>@item.DailySalesAmount</td>
+                                                <td>@item.DailySalesEarning</td>
+                                                <td>@item.SalesDate.ToShortDateString()</td>
+                                                <td>
 
 
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
-                                                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
+                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
 
-                                                <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Finans Kaydı Sil</h5>
-                                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Finans Kaydı Sil</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="DeleteFinance" asp-controller="Finance" method="post">
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Finans ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Finance.FinanceId" value="@item.FinanceId">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.Locasion" value="@item.Locasion">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
+                                                                            <input class="form-control" type="date" required="" readonly="" asp-for="@Model.Finance.SalesDate" value="@item.SalesDate.ToString("yyyy-MM-dd")">
+                                                                        </div>
+
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Sil</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form asp-action="DeleteFinance" asp-controller="Finance" method="post">
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Finans ID:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Finance.FinanceId" value="@item.FinanceId">
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Şube Adı:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
-                                                                    </div>
-                                                                    <div class="mb-3">
-
-                                                                        <label class="col-form-label" for="recipient-name">Lokasyon:</label>
-                                                                        <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.Locasion" value="@item.Locasion">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="col-form-label" for="recipient-name">Kayıt Tarihi:</label>
-                                                                        <input class="form-control" type="date" required="" readonly="" asp-for="@Model.Finance.SalesDate" value="@item.SalesDate.ToString("yyyy-MM-dd")">
-                                                                    </div>
-
-
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
-                                                                        <button class="btn btn-primary" type="submit">Sil</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
                                                         </div>
                                                     </div>
-                                                </div>
 
 
-                                                @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
-                                                <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                                    <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -147,7 +148,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form asp-action="UpdateFinance" asp-controller="Finance" method="post">
-                                                                        
+
                                                                         <div class="mb-3">
 
                                                                             <label class="col-form-label" for="recipient-name">Finans ID:</label>
@@ -176,7 +177,7 @@
                                                                             <label class="col-form-label" for="recipient-name">Ciro:</label>
                                                                             <input class="form-control" type="number" required="" asp-for="@Model.Finance.DailySalesEarning" value="@Convert.ToUInt16(item.DailySalesEarning)">
                                                                         </div>
-                                                                       
+
 
                                                                         <div class="modal-footer">
                                                                             <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
@@ -190,14 +191,15 @@
                                                     </div>
 
 
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
 
 
-                                    }
+                                        }
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
