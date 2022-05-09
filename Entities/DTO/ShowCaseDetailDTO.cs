@@ -13,7 +13,7 @@ namespace Entities.DTO
         public DateTime EndDate { get; set; }
         public string Url { get; set; }
 
-
+        public int ShopId { get; set; }
         public string ShopName { get; set; }
         public string Locasion { get; set; }
     }

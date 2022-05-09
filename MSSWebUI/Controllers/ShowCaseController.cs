@@ -94,6 +94,36 @@ namespace MSSWebUI.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult DeleteShowCase(ShowCase showCase)
+        {
 
+            try
+            {
+                _showCaseService.Delete(showCase);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "ShowCase");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateShowCase(AddShowCaseShopDTO addShowCaseShopDTO)
+        {
+            addShowCaseShopDTO.ShowCase.ShopId = addShowCaseShopDTO.Shop.ShopId;
+
+
+            try
+            {
+                _showCaseService.Update(addShowCaseShopDTO.ShowCase);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "ShowCase");
+        }
     }
 }

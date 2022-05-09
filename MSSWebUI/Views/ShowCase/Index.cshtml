@@ -28,7 +28,7 @@
                                             <th scope="col">Lokasyon</th>
                                             <th scope="col">Başlangıç Tarihi</th>
                                             <th scope="col">Bitiş Tarihi</th>
-                                            <th scope="col">Url</th>
+                                            <th scope="col">Görsel</th>
                                             <th scope="col">İşlem</th>
                                         </tr>
                                     </thead>
@@ -45,9 +45,112 @@
                                                 <td>@item.StartDate.ToShortDateString()</td>
                                                 <td>@item.EndDate.ToShortDateString()</td>
                                                 <td>
-                                                <a target="_blank" href="@item.Url"><img src="@item.Url" width="200" ></a></td>
+                                                <a target="_blank" href="@item.Url"><img src="@item.Url" width="100"  ></a></td>
                                                 <td>
-                                                    <a class="btn btn-warning" ><i class="icon-pencil"></i> Göster</a>
+                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
+
+                                                    <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Vitrin Görseli Sil</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="DeleteShowCase" asp-controller="ShowCase" method="post">
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Vitrin ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.ShowCase.ShowCaseId" value="@item.ShowCaseId">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.Locasion" value="@item.Locasion">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Görsel:</label><br />
+                                                                            <img src="@item.Url" width="100">
+                                                                        </div>
+
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Sil</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                                    <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Vitrin Kaydı Düzenle</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="UpdateShowCase" asp-controller="ShowCase" method="post">
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Vitrin ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.ShowCase.ShowCaseId" value="@item.ShowCaseId">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                           
+                                                                            <input class="form-control" type="text" required="" readonly="" hidden="" asp-for="@Model.Shop.ShopId" value="@item.ShopId">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.Locasion" value="@item.Locasion">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Başlangıç Tarih:</label>
+                                                                            <input class="form-control" type="date" required="" readonly="" asp-for="@Model.ShowCase.StartDate" value="@item.StartDate.ToString("yyyy-MM-dd")">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Bitiş Tarih:</label>
+                                                                            <input class="form-control" type="date" required="" asp-for="@Model.ShowCase.EndDate" value="@item.EndDate.ToString("yyyy-MM-dd")">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="col-form-label" for="recipient-name">Görsel:</label><br />
+                                                                            <img src="@item.Url" width="100">
+                                                                            <input class="form-control" type="text" required="" readonly="" hidden="" asp-for="@Model.ShowCase.Url" value="@item.Url">
+                                                                        </div>
+
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
 
                                             </tr>

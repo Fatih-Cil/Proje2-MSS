@@ -25,6 +25,7 @@ namespace DataAccess.Concrete
                              select new ShowCaseDetailDTO
                              {
                                  ShowCaseId = showCase.ShowCaseId,
+                                 ShopId=shop.ShopId,
                                  ShopName = shop.ShopName,
                                  Locasion = shop.Locasion,
                                  StartDate = showCase.StartDate,

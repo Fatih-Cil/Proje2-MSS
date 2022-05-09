@@ -56,17 +56,7 @@ namespace MSSWebUI.Controllers
         [HttpPost]
         public IActionResult AddFinance(AddFinanceShopDTO addFinanceShopDTO)
         {
-            //EmployeeValidator validationRules = new EmployeeValidator();
-            //var result = validationRules.Validate(addEmployeeDTO.Employee);
-            //if (!result.IsValid)
-            //{
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return Redirect("Index");
-            //}
-            //else
+            
             if (addFinanceShopDTO.Shop.ShopId< 1)
             {
 
@@ -97,23 +87,7 @@ namespace MSSWebUI.Controllers
         [HttpPost]
         public IActionResult UpdateFinance(AddFinanceShopDTO addFinanceShopDTO)
         {
-            //EmployeeValidator validationRules = new EmployeeValidator();
-            //var result = validationRules.Validate(addEmployeeDTO.Employee);
-
-            //if (!result.IsValid)
-            //{
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return Redirect("Index");
-            //}
-            //else if (addEmployeeDTO.Authority.AuthorityId < 1)
-            //{
-
-            //    ModelState.AddModelError("AuthorityId", "Yetki seçilmediği için kayıt yapılamadı.");
-            //    return Redirect("Index");
-            //}
+            
             addFinanceShopDTO.Finance.ShopId= addFinanceShopDTO.Shop.ShopId;
 
             try
