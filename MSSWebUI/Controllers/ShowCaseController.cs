@@ -69,9 +69,11 @@ namespace MSSWebUI.Controllers
 
                 Directory.CreateDirectory(FilePath);
 
-            var fileName = file.FileName;
-
+            var fileName =  file.FileName;
+            fileName = fileName.Replace(" ","");
             var filePath = Path.Combine(FilePath, fileName);
+
+            
 
             using (FileStream fs = System.IO.File.Create(filePath))
 
@@ -80,7 +82,7 @@ namespace MSSWebUI.Controllers
                 showCase.ShopId = id;
                 showCase.StartDate = DateTime.Now;
                 showCase.EndDate = DateTime.Now.AddDays(7);
-                showCase.Url = filePath;
+                showCase.Url = FileDic+"\\"+fileName;
                 _showCaseService.Add(showCase);
 
                 file.CopyTo(fs);

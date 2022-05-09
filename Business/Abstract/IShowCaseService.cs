@@ -14,6 +14,7 @@ namespace Business.Abstract
         void Add(ShowCase showCase);
         void Update(ShowCase showCase);
         void Delete(ShowCase showCase);
+        ShowCase GetByShowCaseURL(string url);
 
         List<ShowCaseDetailDTO> GetShowCaseDetails();
     }

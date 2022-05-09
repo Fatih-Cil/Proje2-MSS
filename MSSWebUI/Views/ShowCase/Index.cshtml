@@ -44,9 +44,10 @@
                                                 <td>@item.Locasion</td>
                                                 <td>@item.StartDate.ToShortDateString()</td>
                                                 <td>@item.EndDate.ToShortDateString()</td>
-                                                <td>@item.Url</td>
                                                 <td>
-                                                    <a class="btn btn-warning" asp-action="AddShowCase" asp-controller="ShowCase" name="@item.ShowCaseId"><i class="icon-pencil"></i> Düzenle</a>
+                                                <a target="_blank" href="@item.Url"><img src="@item.Url" width="200" ></a></td>
+                                                <td>
+                                                    <a class="btn btn-warning" ><i class="icon-pencil"></i> Göster</a>
                                                 </td>
 
                                             </tr>

@@ -34,6 +34,11 @@ namespace Business.Concrete
             return _showCaseDal.GetAll();
         }
 
+        public ShowCase GetByShowCaseURL(string url)
+        {
+            return _showCaseDal.Get(x=>x.Url==url);
+        }
+
         public List<ShowCaseDetailDTO> GetShowCaseDetails()
         {
             return _showCaseDal.GetShowCaseDatails();
