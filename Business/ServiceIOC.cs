@@ -30,6 +30,9 @@ namespace Business
             services.AddScoped<IFinanceDal, EfFinanceDal>();
             services.AddScoped<IShowCaseService, ShowCaseManager>();
             services.AddScoped<IShowCaseDal, EfShowCaseDal>();
+            services.AddScoped<IAssignService, AssignManager>();
+            services.AddScoped<IEmployeeShopDal, EfEmployeeShopDal>();
+            services.AddScoped<IShopCampaignDal, EfShopCampaignDal>();
         }
     }
 }

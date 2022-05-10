@@ -51,16 +51,7 @@ namespace MSSWebUI.Controllers
         [HttpPost]
         public IActionResult AddShift(Shift shift)
         {
-            //ShopValidator validationRules = new ShopValidator();
-            //var result = validationRules.Validate(shop);
-            //if (!result.IsValid)
-            //{
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return Redirect("Index");
-            //}
+            
             _shiftService.Add(shift);
             return Redirect("Index");
         }

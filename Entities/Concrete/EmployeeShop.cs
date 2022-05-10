@@ -11,14 +11,17 @@ namespace Entities.Concrete
     public class EmployeeShop:IEntity
     {
         [Key]
+        public int EmployeShopId { get; set; }
         public int EmployeeId { get; set; }
         public int ShopId { get; set; }
-        public int ShiftId { get; set; }
-        public DateTime Date { get; set; }
 
-        
+        public DateTime Date { get; set; }
+        public TimeSpan CheckIn { get; set; }
+        public TimeSpan CheckOut { get; set; }
+
+
         public virtual Employee Employee { get; set; }
         public virtual Shop Shop { get; set; }
-        public virtual Shift Shift { get; set; }
+
     }
 }

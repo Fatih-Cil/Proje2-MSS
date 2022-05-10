@@ -20,6 +20,6 @@ namespace Entities.Concrete
         [DefaultValue(1)]
         public bool Status { get; set; }
 
-        public ICollection<EmployeeShop> EmployeeShops { get; set; }
+      
     }
 }

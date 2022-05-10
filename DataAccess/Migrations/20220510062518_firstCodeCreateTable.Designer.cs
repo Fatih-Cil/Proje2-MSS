@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MSSContext))]
-    [Migration("20220430154035_defaultvaluedelete")]
-    partial class defaultvaluedelete
+    [Migration("20220510062518_firstCodeCreateTable")]
+    partial class firstCodeCreateTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,9 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("CampaignId");
 
@@ -100,28 +103,29 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.EmployeeShop", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("EmployeShopId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<TimeSpan>("CheckIn")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("CheckOut")
+                        .HasColumnType("time");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShiftId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("EmployeShopId");
 
-                    b.HasIndex("EmployeeId1");
-
-                    b.HasIndex("ShiftId");
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("ShopId");
 
@@ -169,6 +173,9 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("ShiftName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("ShiftId");
 
@@ -240,19 +247,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Url1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url5")
+                    b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShowCaseId");
@@ -303,13 +298,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Entities.Concrete.Employee", "Employee")
                         .WithMany("EmployeeShops")
-                        .HasForeignKey("EmployeeId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Concrete.Shift", "Shift")
-                        .WithMany("EmployeeShops")
-                        .HasForeignKey("ShiftId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -320,8 +309,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-
-                    b.Navigation("Shift");
 
                     b.Navigation("Shop");
                 });
@@ -389,11 +376,6 @@ namespace DataAccess.Migrations
                 });
 
             modelBuilder.Entity("Entities.Concrete.Employee", b =>
-                {
-                    b.Navigation("EmployeeShops");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Shift", b =>
                 {
                     b.Navigation("EmployeeShops");
                 });

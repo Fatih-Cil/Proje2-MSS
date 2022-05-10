@@ -1,0 +1,130 @@
+﻿@model MSSWebUI.Models.DTO.AddAssignDTO
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Personel Vardiya İşlemleri</h5><br />
+                </div>
+
+                <div class="card-block row">
+
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vardiyaAta"><i class="icon-plus"></i> Vardiya Ata</a>
+                        <div class="modal fade" id="vardiyaAta" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Vardiya Ata</h5>
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form asp-action="AddAssignShift" asp-controller="Assign" method="post">
+                                            <div class="mb-3">
+                                                <input class="form-control" type="text" required="" hidden="" readonly="" name="Status" value="true">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="recipient-name">Tarih:</label>
+                                                <input class="form-control" type="date" required="" asp-for="@Model.WorkDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Employee:</label>
+                                                <select class="form-select digits" required="" asp-for="@Model.Employee.EmployeeId"
+                                                        asp-items="@(new SelectList(Model.EmployeeList,"EmployeeId","EmployeeName","/","EmployeeId"))">
+                                                    <option>Personel seçin</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Vardiya:</label>
+                                                <select class="form-select digits" required="" asp-for="@Model.Shift.ShiftId"
+                                                        asp-items="@(new SelectList(Model.ShiftList,"ShiftId","ShiftName"))">
+                                                    <option>Vardiya seçin</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+
+                                                <label class="form-label">Şube:</label>
+                                                <select class="form-select digits" required="" asp-for="@Model.Shop.ShopId"
+                                                        asp-items="@(new SelectList(Model.ShopList,"ShopId","ShopName","","Locasion"))">
+                                                    <option>Şube seçin</option>
+
+                                                </select>
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
+                                                <button class="btn btn-primary" type="submit">Kaydet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display" id="basic-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Ad</th>
+                                            <th scope="col">Soyad</th>
+                                            <th scope="col">Şube</th>
+                                            <th scope="col">Konum</th>
+                                            <th scope="col">Tarih</th>
+                                            <th scope="col">Giriş</th>
+                                            <th scope="col">Çıkış</th>
+                                            <th scope="col">İşlem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.AssignList)
+                                        {
+                                            string duzenle = ""; duzenle = "duzenle" + item.EmployeeShopId;
+                                            string sil = ""; sil = "sil" + item.EmployeeShopId;
+
+                                            <tr>
+                                                <th scope="row">@item.EmployeeShopId</th>
+                                                <td>@item.EmployeeName</td>
+                                                <td>@item.EmployeeSurname</td>
+                                                <td>@item.ShopName</td>
+                                                <td>@item.Locasion</td>
+                                                <td>@item.WorkDate.ToShortDateString()</td>
+                                                <td>@item.CheckIn</td>
+                                                <td>@item.CheckOut</td>
+                                                <td></td>
+                                            </tr>
+
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Şube Kampanya İşlemleri</h5><br />
+
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class firstcode : Migration
+    public partial class firstCodeCreateTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,8 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CampaignName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,8 +44,9 @@ namespace DataAccess.Migrations
                     ShiftId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ShiftName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CheckIn = table.Column<TimeSpan>(type: "time", nullable: false),
+                    CheckOut = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,8 +61,9 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ShopName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Locasion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Opening = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Closing = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Opening = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Closing = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,7 +82,8 @@ namespace DataAccess.Migrations
                     RegisterNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,11 +152,7 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Url1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url4 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url5 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -192,27 +192,22 @@ namespace DataAccess.Migrations
                 name: "EmployeeShops",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    EmployeShopId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
                     ShopId = table.Column<int>(type: "int", nullable: false),
-                    ShiftId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeId1 = table.Column<int>(type: "int", nullable: false)
+                    CheckIn = table.Column<TimeSpan>(type: "time", nullable: false),
+                    CheckOut = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeShops", x => x.EmployeeId);
+                    table.PrimaryKey("PK_EmployeeShops", x => x.EmployeShopId);
                     table.ForeignKey(
-                        name: "FK_EmployeeShops_Employees_EmployeeId1",
-                        column: x => x.EmployeeId1,
+                        name: "FK_EmployeeShops_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmployeeShops_Shifts_ShiftId",
-                        column: x => x.ShiftId,
-                        principalTable: "Shifts",
-                        principalColumn: "ShiftId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_EmployeeShops_Shops_ShopId",
@@ -228,14 +223,9 @@ namespace DataAccess.Migrations
                 column: "AuthorityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeShops_EmployeeId1",
+                name: "IX_EmployeeShops_EmployeeId",
                 table: "EmployeeShops",
-                column: "EmployeeId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeShops_ShiftId",
-                table: "EmployeeShops",
-                column: "ShiftId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeShops_ShopId",
@@ -277,6 +267,9 @@ namespace DataAccess.Migrations
                 name: "Finances");
 
             migrationBuilder.DropTable(
+                name: "Shifts");
+
+            migrationBuilder.DropTable(
                 name: "ShopCampaigns");
 
             migrationBuilder.DropTable(
@@ -287,9 +280,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "Shifts");
 
             migrationBuilder.DropTable(
                 name: "Campaigns");
