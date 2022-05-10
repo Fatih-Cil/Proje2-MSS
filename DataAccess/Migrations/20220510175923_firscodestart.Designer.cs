@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MSSContext))]
-    [Migration("20220510062518_firstCodeCreateTable")]
-    partial class firstCodeCreateTable
+    [Migration("20220510175923_firscodestart")]
+    partial class firscodestart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -211,7 +211,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.ShopCampaign", b =>
                 {
-                    b.Property<int>("ShopId")
+                    b.Property<int>("ShopCampaignId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -219,14 +219,14 @@ namespace DataAccess.Migrations
                     b.Property<int>("CampaignId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShopId1")
+                    b.Property<int>("ShopId")
                         .HasColumnType("int");
 
-                    b.HasKey("ShopId");
+                    b.HasKey("ShopCampaignId");
 
                     b.HasIndex("CampaignId");
 
-                    b.HasIndex("ShopId1");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("ShopCampaigns");
                 });
@@ -334,7 +334,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Entities.Concrete.Shop", "Shop")
                         .WithMany("ShopCampaigns")
-                        .HasForeignKey("ShopId1")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

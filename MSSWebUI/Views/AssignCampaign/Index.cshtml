@@ -1,0 +1,107 @@
+﻿@model MSSWebUI.Models.DTO.AddAssignCampaignDTO
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Şube Kampanya Atama</h5><br />
+                </div>
+
+                <div class="card-block row">
+
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kampanyaAta"><i class="icon-plus"></i> Kampanya Ata</a>
+                        <div class="modal fade" id="kampanyaAta" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Kampanya Ata</h5>
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form asp-action="AddAssignCampaign" asp-controller="AssignCampaign" method="post">
+                                            <div class="mb-3">
+                                                <input class="form-control" type="text" required="" hidden="" readonly="" name="Status" value="true">
+                                            </div>
+                                            <div class="mb-3">
+
+                                                <label class="form-label">Şube:</label>
+                                                <select class="form-select digits" required="" asp-for="@Model.Shop.ShopId"
+                                                        asp-items="@(new SelectList(Model.ShopList,"ShopId","ShopName","","Locasion"))">
+                                                    <option>Şube seçin</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+
+                                                <label class="form-label">Kampanya:</label>
+                                                <select class="form-select digits" required="" asp-for="@Model.Campaign.CampaignId"
+                                                        asp-items="@(new SelectList(Model.CampaignList,"CampaignId","CampaignName"))">
+                                                    <option>Kampanya seçin</option>
+
+                                                </select>
+                                            </div>
+                                            
+
+
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Çıkış</button>
+                                                <button class="btn btn-primary" type="submit">Kaydet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display" id="basic-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Kampanya</th>                                            
+                                            <th scope="col">Şube</th>
+                                            <th scope="col">Konum</th>
+                                            <th scope="col">Başlangıç</th>
+                                            <th scope="col">Bitiş</th>                                            
+                                            <th scope="col">İşlem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.AssignCampaignList)
+                                        {
+                                            string duzenle = ""; duzenle = "duzenle" + item.ShopCampaignId;
+                                            string sil = ""; sil = "sil" + item.ShopCampaignId;
+
+                                            <tr>
+                                                <th scope="row">@item.ShopCampaignId</th>
+                                                <td>@item.CampaignName</td>
+                                                <td>@item.ShopName</td>                                                
+                                                <td>@item.Locasion</td>
+                                                <td>@item.StartDate.ToShortDateString()</td>
+                                                <td>@item.EndDate.ToShortDateString()</td>                                                
+                                                <td></td>
+                                            </tr>
+
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -31,6 +31,7 @@ namespace Business
             services.AddScoped<IShowCaseService, ShowCaseManager>();
             services.AddScoped<IShowCaseDal, EfShowCaseDal>();
             services.AddScoped<IAssignService, AssignManager>();
+            services.AddScoped<IShopCampaignService, ShopCampaignManager>();
             services.AddScoped<IEmployeeShopDal, EfEmployeeShopDal>();
             services.AddScoped<IShopCampaignDal, EfShopCampaignDal>();
         }

@@ -18,8 +18,7 @@ namespace MSSWebUI.Models.DTO
         public Shop Shop { get; set; }
         public List<Shift> ShiftList { get; set; }
         public Shift Shift{ get; set; }
-        public List<Campaign> CampaignList { get; set; }
-        public Campaign Campaign { get; set; }
+        
 
         public DateTime WorkDate { get; set; }
         

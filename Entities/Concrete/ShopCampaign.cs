@@ -10,7 +10,9 @@ namespace Entities.Concrete
 {
     public class ShopCampaign:IEntity
     {
+
         [Key]
+        public int ShopCampaignId { get; set; }
         public int ShopId { get; set; }
         public int CampaignId { get; set; }
 

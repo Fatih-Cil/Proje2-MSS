@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class firstCodeCreateTable : Migration
+    public partial class firscodestart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -122,14 +122,14 @@ namespace DataAccess.Migrations
                 name: "ShopCampaigns",
                 columns: table => new
                 {
-                    ShopId = table.Column<int>(type: "int", nullable: false)
+                    ShopCampaignId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CampaignId = table.Column<int>(type: "int", nullable: false),
-                    ShopId1 = table.Column<int>(type: "int", nullable: false)
+                    ShopId = table.Column<int>(type: "int", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShopCampaigns", x => x.ShopId);
+                    table.PrimaryKey("PK_ShopCampaigns", x => x.ShopCampaignId);
                     table.ForeignKey(
                         name: "FK_ShopCampaigns_Campaigns_CampaignId",
                         column: x => x.CampaignId,
@@ -137,8 +137,8 @@ namespace DataAccess.Migrations
                         principalColumn: "CampaignId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ShopCampaigns_Shops_ShopId1",
-                        column: x => x.ShopId1,
+                        name: "FK_ShopCampaigns_Shops_ShopId",
+                        column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "ShopId",
                         onDelete: ReferentialAction.Cascade);
@@ -243,9 +243,9 @@ namespace DataAccess.Migrations
                 column: "CampaignId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShopCampaigns_ShopId1",
+                name: "IX_ShopCampaigns_ShopId",
                 table: "ShopCampaigns",
-                column: "ShopId1");
+                column: "ShopId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShowCases_ShopId",
