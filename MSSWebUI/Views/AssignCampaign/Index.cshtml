@@ -87,7 +87,112 @@
                                                 <td>@item.Locasion</td>
                                                 <td>@item.StartDate.ToShortDateString()</td>
                                                 <td>@item.EndDate.ToShortDateString()</td>                                                
-                                                <td></td>
+                                                <td>
+
+                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#@sil"><i class="icon-trash"></i> Sil</a>
+                                                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#@duzenle"><i class="icon-pencil"></i> Düzenle</a>
+
+                                                    <div class="modal fade" id="@sil" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Kampanya Atama Kaydını Sil</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="DeleteAssignCampaign" asp-controller="AssignCampaign" method="post">
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.ShopCampaign.ShopCampaignId" value="@item.ShopCampaignId">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Kampanya:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Campaign.CampaignName" value="@item.CampaignName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Şube Adı:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Lokasyon:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.Locasion" value="@item.Locasion">
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">Şube:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.Shop.ShopName" value="@item.ShopName">
+                                                                        </div>
+                                                                        
+
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Sil</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    @* burası düzenleme yapılırken modal olarak popup penceresi açacak. *@
+                                                    <div class="modal fade" id="@duzenle" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Kampanya Kaydı Düzenle</h5>
+                                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form asp-action="UpdateAssignCampaign" asp-controller="AssignCampaign" method="post">
+
+                                                                        <div class="mb-3">
+
+                                                                            <label class="col-form-label" for="recipient-name">ID:</label>
+                                                                            <input class="form-control" type="text" required="" readonly="" asp-for="@Model.ShopCampaign.ShopCampaignId" value="@item.ShopCampaignId">
+                                                                        </div>
+                                                                        
+                                                                        <div class="mb-3">
+
+                                                                            <label class="form-label">Şube:</label>
+                                                                            <select class="form-select digits" required="" asp-for="@Model.Shop.ShopId"
+                                                                                    asp-items="@(new SelectList(Model.ShopList,"ShopId","ShopName","","Locasion"))">
+                                                                                <option>Şube seçin</option>
+
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="mb-3">
+
+                                                                            <label class="form-label">Kampanya:</label>
+                                                                            <select class="form-select digits" required="" asp-for="@Model.Campaign.CampaignId"
+                                                                                    asp-items="@(new SelectList(Model.CampaignList,"CampaignId","CampaignName"))">
+                                                                                <option>Kampanya seçin</option>
+
+                                                                            </select>
+                                                                        </div>
+
+
+
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Vazgeç</button>
+                                                                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
                                             </tr>
 
 

@@ -10,6 +10,7 @@ namespace MSSWebUI.Models.DTO
     public class AddAssignCampaignDTO
     {
         public List<ShopCampaignDTO> AssignCampaignList { get; set; }
+        public ShopCampaign ShopCampaign{ get; set; }
         public List<Shop> ShopList { get; set; }
         public Shop Shop { get; set; }
         public List<Campaign> CampaignList { get; set; }

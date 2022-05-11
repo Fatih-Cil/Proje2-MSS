@@ -10,8 +10,8 @@ namespace MSSWebUI.Models.DTO
     public class AddAssignDTO
     {
         public List<AssignDetailDTO> AssignList { get; set; }
+        public EmployeeShop EmployeeShop { get; set; }
 
-       
         public List<Employee> EmployeeList { get; set; }
         public Employee Employee { get; set; }
         public List<Shop> ShopList { get; set; }

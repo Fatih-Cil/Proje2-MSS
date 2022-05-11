@@ -27,8 +27,8 @@ namespace DataAccess.Concrete
 
                              select new AssignDetailDTO
                              {
-                                 EmployeeShopId=assign.EmployeeId,
-                                 
+                                 EmployeeShopId=assign.EmployeShopId,
+                                EmployeeId=employee.EmployeeId,
                                  EmployeeName = employee.EmployeeName,
                                  EmployeeSurname = employee.EmployeeSurname,
                                  ShopName=shop.ShopName,

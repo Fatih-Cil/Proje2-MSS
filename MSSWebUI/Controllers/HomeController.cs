@@ -53,7 +53,7 @@ namespace MSSWebUI.Controllers
             
             else
             {
-                if (_user.Mail == login.Mail && _user.Password == login.Password)
+                if (_user.Mail == login.Mail && _user.Password == login.Password && _user.Status==true)
                 {
 
                     //ModelState.AddModelError("Password", "Giriş başarılı");
@@ -65,7 +65,7 @@ namespace MSSWebUI.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Password", "Şifrenizi kontrol ediniz");
+                    ModelState.AddModelError("Password", "Giriş başarısız");
                     return View();
                 }
             }

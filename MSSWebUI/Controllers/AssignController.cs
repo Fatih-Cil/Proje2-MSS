@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MSSWebUI.Models.DTO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +27,34 @@ namespace MSSWebUI.Controllers
             _shiftService = shiftService;
         }
 
+        public bool SessionKontrol()
+        {
+            try
+            {
+                _employee = JsonConvert.DeserializeObject<Employee>(HttpContext.Session.GetString("SessionUser"));
+
+
+                bool result = (_employee == null) ? false : true;
+                return result;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
         public IActionResult Index()
         {
-            
+            if (!SessionKontrol())
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("Index", "Home");
+            }
 
             AddAssignDTO addAssignDTO = new AddAssignDTO();
-            addAssignDTO.EmployeeList= _employeeService.GetAll();
-            addAssignDTO.ShopList = _shopService.GetAll();
-            addAssignDTO.ShiftList = _shiftService.GetAll();
+            addAssignDTO.EmployeeList= _employeeService.GetByActiveAll(true);
+            addAssignDTO.ShopList = _shopService.GetByActiveAll(true);
+            addAssignDTO.ShiftList = _shiftService.GetByActiveAll(true);
             addAssignDTO.AssignList = _assignService.GetAssignDetails();
             return View(addAssignDTO);
         }
@@ -51,6 +73,45 @@ namespace MSSWebUI.Controllers
 
             _assignService.AddAssignShift(employeeShop);
             return Redirect("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAssignShift(AddAssignDTO addAssignDTO)
+        {
+
+
+            try
+            {
+                _assignService.DeleteAssignShift(addAssignDTO.EmployeeShop);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Assign");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAssignShift(AddAssignDTO addAssignDTO)
+        {
+           var shiftValue= _shiftService.GetByShiftId(addAssignDTO.Shift.ShiftId);
+
+
+            addAssignDTO.EmployeeShop.ShopId = addAssignDTO.Shop.ShopId;
+            addAssignDTO.EmployeeShop.EmployeeId = addAssignDTO.Employee.EmployeeId;
+            addAssignDTO.EmployeeShop.Date = addAssignDTO.WorkDate;
+            addAssignDTO.EmployeeShop.CheckIn = shiftValue.CheckIn;
+            addAssignDTO.EmployeeShop.CheckOut = shiftValue.CheckOut;
+
+            try
+            {
+                _assignService.UpdateAssignShift(addAssignDTO.EmployeeShop);
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index", "Assign");
         }
     }
 }
