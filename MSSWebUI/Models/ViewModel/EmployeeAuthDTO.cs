@@ -11,9 +11,16 @@ namespace MSSWebUI.Models.ViewModel
     {
         public Employee Employee { get; set; }
 
-        public List<EmployeeDetailDTO> EmployeeList { get; set; }
+        public List<EmployeeDetailDTO> EmployeeDetailList { get; set; }
+        public List<Employee> EmployeeList { get; set; }
         public List<Authority> AuthorityList { get; set; }
         public Authority Authority { get; set; }
         public string AuthorityName { get; set; }
+        public List<Finance> FinanceList { get; set; }
+        public Finance Finance { get; set; }
+        public List<Shop> ShopList { get; set; }
+        public Shop Shop { get; set; }
+        public VisitorEvent VisitorEvent { get; set; }
+        public List<VisitorEvent> VisitorEventList { get; set; }
     }
 }

@@ -13,8 +13,9 @@ namespace Entities.Concrete
         [Key]
         public int VisitorId { get; set; }
         public DateTime EventDate { get; set; }
-        public DateTime EventTime { get; set; }
+        public TimeSpan EventTime { get; set; }
         public string Pozition { get; set; }
+        public bool Status { get; set; }
         public int ShopId { get; set; }
         public virtual Shop Shop { get; set; }
     }

@@ -25,7 +25,7 @@
                         <div class="ribbon ribbon-primary ribbon-space-bottom">Şube Bilgisi</div>
 
 
-                        <label> <h4>Toplam Şube: 3</h4></label>
+                        <label> <h4>Toplam Şube: @Model.ShopList.Count</h4></label>
 
 
                     </div>
@@ -36,42 +36,47 @@
                 <div class="card ribbon-wrapper">
                     <div class="card-body">
                         <div class="ribbon ribbon-secondary ribbon-space-bottom">Personel Bilgisi</div>
-                        <label> <h4>Toplam Personel: 15</h4></label>
+                        <label> <h4>Toplam Personel: @Model.EmployeeList.Count</h4></label>
                     </div>
                 </div>
             </div>
 
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card ribbon-wrapper">
-                    <div class="card-body">
-                        <div class="ribbon ribbon-primary ribbon-space-bottom">Şube Bilgisi</div>
 
+            @{
 
-                        <label> <h1>3</h1></label>
+                foreach (var shop in Model.ShopList)
+                {
+                    <div class="col-sm-12 col-md-6 col-lg-@(12/Model.ShopList.Where(x=>x.Status==true).Count())">
+                        <div class="card ribbon-wrapper">
+                            <div class="card-body">
 
+                                <div class="ribbon ribbon-danger ribbon-space-bottom"> @shop.ShopName-@shop.Locasion</div>
 
+                                @{ var girdi = Model.VisitorEventList.Where(x => x.Pozition.Contains("GIRDI") && x.EventDate.ToShortDateString() == DateTime.Now.ToShortDateString() && x.ShopId == shop.ShopId).Count();
+                                    var cikti = Model.VisitorEventList.Where(x => x.Pozition.Contains("CIKTI") && x.EventDate.ToShortDateString() == DateTime.Now.ToShortDateString() && x.ShopId == shop.ShopId).Count();
+                                    var giris = Model.VisitorEventList.Where(x => x.Pozition.Contains("GIRIS") && x.EventDate.ToShortDateString() == DateTime.Now.ToShortDateString() && x.ShopId == shop.ShopId).Count();
+                                    var cikis = Model.VisitorEventList.Where(x => x.Pozition.Contains("CIKIS") && x.EventDate.ToShortDateString() == DateTime.Now.ToShortDateString() && x.ShopId == shop.ShopId).Count();
+                                    var toplamMusteri = (girdi - giris);
+                                    var icerdekiMusteri = (toplamMusteri - (cikti - cikis));
+                                                                <label>
+                                                                   
+                                                                    <p class="h4 txt-secondary">Toplam Müşteri:<bold> @toplamMusteri</bold></p>
+                                                                    <p class="h4 txt-secondary">İçerdeki Müşteri:<bold> @icerdekiMusteri</bold></p>
+                                                                    <p class="h4 txt-primary">Açılış:<bold> @shop.Opening</bold></p>
+                                                                    <p class="h4 txt-primary">Kapanış:<bold> @shop.Closing</bold></p>
+                                                                    
+                                                                </label><br />
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card ribbon-wrapper">
-                    <div class="card-body">
-                        <div class="ribbon ribbon-secondary ribbon-space-bottom">Personel Bilgisi</div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card ribbon-wrapper">
-                    <div class="card-body">
-                        <div class="ribbon ribbon-danger ribbon-space-bottom">Ribbon</div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-                    </div>
-                </div>
-            </div>
+                }
+            }
         </div>
+
+        
     </div>
 </div>
 

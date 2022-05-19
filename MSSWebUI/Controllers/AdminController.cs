@@ -18,14 +18,17 @@ namespace MSSWebUI.Controllers
         IEmployeeService _employeeService;
         IAuthorityService _authorityService;
         IShopService _shopService;
+        ICampaignService _campaignService;
+        IVisitorEventService _visitorEventService;
         
 
-        public AdminController(IEmployeeService employeeService, IAuthorityService authorityService, IShopService shopService)
+        public AdminController(IEmployeeService employeeService, IAuthorityService authorityService, IShopService shopService,ICampaignService campaignService, IVisitorEventService visitorEventService)
         {
             _employeeService = employeeService;
             _authorityService = authorityService;
             _shopService = shopService;
-
+            _campaignService = campaignService;
+            _visitorEventService = visitorEventService;
         }
 
         public bool SessionKontrol()
@@ -55,11 +58,15 @@ namespace MSSWebUI.Controllers
 
             
             var _authorty = _authorityService.GetByAuthortiyId(_employee.AuthorityId);
-
-            
+            var _shoplist = _shopService.GetByActiveAll(true);
+            var _employeelist = _employeeService.GetByActiveAll(true);
+            var _visitorlist = _visitorEventService.GetAll();
             EmployeeAuthDTO employeeAuthDTO = new EmployeeAuthDTO();
             employeeAuthDTO.Authority = _authorty;
             employeeAuthDTO.Employee = _employee;
+            employeeAuthDTO.ShopList = _shoplist;
+            employeeAuthDTO.EmployeeList = _employeelist;
+            employeeAuthDTO.VisitorEventList = _visitorlist;
 
             return View(employeeAuthDTO);
         }

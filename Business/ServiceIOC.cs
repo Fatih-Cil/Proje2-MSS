@@ -34,6 +34,9 @@ namespace Business
             services.AddScoped<IShopCampaignService, ShopCampaignManager>();
             services.AddScoped<IEmployeeShopDal, EfEmployeeShopDal>();
             services.AddScoped<IShopCampaignDal, EfShopCampaignDal>();
+            services.AddScoped<IVisitorEventService, VisitorEventManager>();
+            services.AddScoped<IVisitorEventDal, EfVisitorEventDal>();
+
         }
     }
 }

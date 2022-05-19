@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{B372D401-4866-4B5A-9761-66D81EEAFC25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSWebUI", "MSSWebUI\MSSWebUI.csproj", "{876BD648-EF45-4013-BAEE-F8E8A4275621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSSWebUI", "MSSWebUI\MSSWebUI.csproj", "{876BD648-EF45-4013-BAEE-F8E8A4275621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
