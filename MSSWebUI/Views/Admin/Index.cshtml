@@ -10,7 +10,7 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card ribbon-wrapper">
                     <div class="card-body">
                         <div class="ribbon ribbon-warning ribbon-space-bottom">Aktif Kullanıcı</div>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card ribbon-wrapper">
                     <div class="card-body">
                         <div class="ribbon ribbon-primary ribbon-space-bottom">Şube Bilgisi</div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card ribbon-wrapper">
                     <div class="card-body">
                         <div class="ribbon ribbon-secondary ribbon-space-bottom">Personel Bilgisi</div>
@@ -40,7 +40,14 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card ribbon-wrapper">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-info ribbon-space-bottom">Kampanya</div>
+                        <label> <h4>Aktif Kampanya: @Model.CampaignActiveList.Where(x=>DateTime.Now>=x.StartDate && DateTime.Now<=x.EndDate).Count()</h4></label>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
 

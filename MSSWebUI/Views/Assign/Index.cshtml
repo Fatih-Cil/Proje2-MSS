@@ -88,7 +88,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.AssignList)
+                                        @foreach (var item in Model.AssignList.OrderByDescending(x=>x.WorkDate))
                                         {
                                             string duzenle = ""; duzenle = "duzenle" + item.EmployeeShopId;
                                             string sil = ""; sil = "sil" + item.EmployeeShopId;

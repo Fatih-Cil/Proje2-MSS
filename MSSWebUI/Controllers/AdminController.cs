@@ -57,16 +57,19 @@ namespace MSSWebUI.Controllers
             }
 
             
-            var _authorty = _authorityService.GetByAuthortiyId(_employee.AuthorityId);
-            var _shoplist = _shopService.GetByActiveAll(true);
-            var _employeelist = _employeeService.GetByActiveAll(true);
-            var _visitorlist = _visitorEventService.GetAll();
+            var authorty = _authorityService.GetByAuthortiyId(_employee.AuthorityId);
+            var shoplist = _shopService.GetByActiveAll(true);
+            var employeelist = _employeeService.GetByActiveAll(true);
+            var visitorlist = _visitorEventService.GetAll();
+            var campaignactive = _campaignService.GetByActiveAll(true);
+            
             EmployeeAuthDTO employeeAuthDTO = new EmployeeAuthDTO();
-            employeeAuthDTO.Authority = _authorty;
+            employeeAuthDTO.Authority = authorty;
             employeeAuthDTO.Employee = _employee;
-            employeeAuthDTO.ShopList = _shoplist;
-            employeeAuthDTO.EmployeeList = _employeelist;
-            employeeAuthDTO.VisitorEventList = _visitorlist;
+            employeeAuthDTO.ShopList = shoplist;
+            employeeAuthDTO.EmployeeList = employeelist;
+            employeeAuthDTO.VisitorEventList = visitorlist;
+            employeeAuthDTO.CampaignActiveList = campaignactive;
 
             return View(employeeAuthDTO);
         }

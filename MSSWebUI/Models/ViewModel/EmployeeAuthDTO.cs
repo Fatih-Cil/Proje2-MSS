@@ -22,5 +22,6 @@ namespace MSSWebUI.Models.ViewModel
         public Shop Shop { get; set; }
         public VisitorEvent VisitorEvent { get; set; }
         public List<VisitorEvent> VisitorEventList { get; set; }
+        public List<Campaign> CampaignActiveList { get; set; }
     }
 }

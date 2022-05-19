@@ -77,7 +77,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.FinanceDetails.OrderBy(x => x.SalesDate))
+                                        @foreach (var item in Model.FinanceDetails.OrderByDescending(x => x.SalesDate))
                                         {
                                             string duzenle = ""; duzenle = "duzenle" + item.FinanceId;
                                             string sil = ""; sil = "sil" + item.FinanceId;

@@ -1,0 +1,64 @@
+﻿@model MSSWebUI.Models.DTO.ShowVisitorEventDTO
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Ziyaretçi Akışı</h5><br />
+
+                </div>
+                <div class="card-block row">
+
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+
+                        
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display" id="basic-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Şube</th>
+                                            <th scope="col">Lokasyon</th>
+                                            <th scope="col">Tarih</th>
+                                            <th scope="col">Saat</th>
+                                            <th scope="col">Pozisyon</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.VisitorDetails.OrderByDescending(x => x.EventDate))
+                                        {
+                                           
+
+                                            <tr>
+                                                <th scope="row">@item.VisitorId</th>
+                                                <td>@item.ShopName</td>
+                                                <td>@item.Locasion</td>
+                                                <td>@item.EventDate.ToShortDateString()</td>
+                                                <td>@item.EventTime</td>
+                                                <td>@item.Pozition</td>
+                                                
+                                            </tr>
+
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

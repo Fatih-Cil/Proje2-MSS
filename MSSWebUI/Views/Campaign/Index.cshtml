@@ -71,7 +71,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.OrderBy(x => x.EndDate))
+                                        @foreach (var item in Model.OrderByDescending(x => x.StartDate))
                                         {
                                             string duzenle = ""; duzenle = "duzenle" + item.CampaignId;
                                             string sil = ""; sil = "sil" + item.CampaignId;
