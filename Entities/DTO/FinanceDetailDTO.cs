@@ -14,6 +14,7 @@ namespace Entities.DTO
         public int DailySalesAmount { get; set; }
         public DateTime SalesDate { get; set; }
 
+        public int ShopId { get; set; }
         public string ShopName { get; set; }
         public string Locasion { get; set; }
     }

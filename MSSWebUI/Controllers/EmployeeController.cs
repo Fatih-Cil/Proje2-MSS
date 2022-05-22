@@ -48,6 +48,10 @@ namespace MSSWebUI.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Index", "Home");
             }
+            else if (_employee.AuthorityId>1)
+            {
+                return RedirectToAction("ErrorPage","Admin");
+            }
            
             AddEmployeeDTO addEmployeeDTO = new AddEmployeeDTO();
             addEmployeeDTO.EmployeeDetail = _employeeService.GetEmployeeDetails();

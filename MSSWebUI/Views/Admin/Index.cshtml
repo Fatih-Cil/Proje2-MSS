@@ -25,7 +25,7 @@
                         <div class="ribbon ribbon-primary ribbon-space-bottom">Şube Bilgisi</div>
 
 
-                        <label> <h4>Toplam Şube: @Model.ShopList.Count</h4></label>
+                        <label> <h4>Aktif Şube: @Model.ShopList.Count</h4></label>
 
 
                     </div>
@@ -36,7 +36,7 @@
                 <div class="card ribbon-wrapper">
                     <div class="card-body">
                         <div class="ribbon ribbon-secondary ribbon-space-bottom">Personel Bilgisi</div>
-                        <label> <h4>Toplam Personel: @Model.EmployeeList.Count</h4></label>
+                        <label> <h4>Aktif Personel: @Model.EmployeeList.Count</h4></label>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="card ribbon-wrapper">
                     <div class="card-body">
                         <div class="ribbon ribbon-info ribbon-space-bottom">Kampanya</div>
-                        <label> <h4>Aktif Kampanya: @Model.CampaignActiveList.Where(x=>DateTime.Now>=x.StartDate && DateTime.Now<=x.EndDate).Count()</h4></label>
+                        <label> <h4>Aktif Kampanya: @Model.CampaignActiveList.Where(x => DateTime.Now >= x.StartDate && DateTime.Now <= x.EndDate).Count()</h4></label>
                     </div>
                 </div>
             </div>
@@ -67,14 +67,18 @@
                                     var cikis = Model.VisitorEventList.Where(x => x.Pozition.Contains("CIKIS") && x.EventDate.ToShortDateString() == DateTime.Now.ToShortDateString() && x.ShopId == shop.ShopId).Count();
                                     var toplamMusteri = (girdi - giris);
                                     var icerdekiMusteri = (toplamMusteri - (cikti - cikis));
-                                                                <label>
-                                                                   
-                                                                    <p class="h4 txt-secondary">Toplam Müşteri:<bold> @toplamMusteri</bold></p>
-                                                                    <p class="h4 txt-secondary">İçerdeki Müşteri:<bold> @icerdekiMusteri</bold></p>
-                                                                    <p class="h4 txt-primary">Açılış:<bold> @shop.Opening</bold></p>
-                                                                    <p class="h4 txt-primary">Kapanış:<bold> @shop.Closing</bold></p>
-                                                                    
-                                                                </label><br />
+                                    var maksimumciro = Model.FinanceList.Where(x => x.ShopId == shop.ShopId).Max(p => p.DailySalesEarning);
+
+                                    <label>
+
+                                        <p class="h5 txt-secondary">Anlık Toplam Müşteri:<bold> @toplamMusteri</bold></p>
+                                        <p class="h5 txt-secondary">Anlık İçerdeki Müşteri:<bold> @icerdekiMusteri</bold></p>
+                                        <p class="h5 txt-danger">Yapılan En Yüksek Ciro:<bold> @maksimumciro TL.</bold></p>
+                                        <p class="h5 txt-primary">Açılış:<bold> @shop.Opening</bold></p>
+                                        <p class="h5 txt-primary">Kapanış:<bold> @shop.Closing</bold></p>
+
+                                    </label><br />
+
                                 }
                             </div>
                         </div>
@@ -83,7 +87,7 @@
             }
         </div>
 
-        
+
     </div>
 </div>
 

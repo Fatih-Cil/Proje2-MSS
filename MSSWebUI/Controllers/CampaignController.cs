@@ -43,6 +43,10 @@ namespace MSSWebUI.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Index", "Home");
             }
+            else if (_employee.AuthorityId > 1)
+            {
+                return RedirectToAction("ErrorPage", "Admin");
+            }
             var campaign = _campaignService.GetByActiveAll(true);
 
             return View(campaign);

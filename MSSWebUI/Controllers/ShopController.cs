@@ -45,9 +45,15 @@ namespace MSSWebUI.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Index", "Home");
             }
+            else if (_employee.AuthorityId > 1)
+            {
+                return RedirectToAction("ErrorPage", "Admin");
+            }
             var shop = _shopService.GetByActiveAll(true);
             return View(shop);
         }
+
+
         [HttpPost]
         public IActionResult AddShop(Shop shop)
         {

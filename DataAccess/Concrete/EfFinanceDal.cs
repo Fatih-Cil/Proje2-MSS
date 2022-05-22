@@ -25,6 +25,7 @@ namespace DataAccess.Concrete
                              select new FinanceDetailDTO
                              {
                                  FinanceId=finance.FinanceId,
+                                 ShopId=shop.ShopId,
                                  ShopName=shop.ShopName,
                                  Locasion=shop.Locasion,
                                  DailySalesAmount=finance.DailySalesAmount,

@@ -53,7 +53,7 @@ namespace MSSWebUI.Controllers
             
             else
             {
-                if (_user.Mail == login.Mail && _user.Password == login.Password && _user.Status==true)
+                if (_user.Mail == login.Mail && _user.Password == login.Password && _user.Status==true && _user.AuthorityId<3)
                 {
 
                     //ModelState.AddModelError("Password", "Giriş başarılı");

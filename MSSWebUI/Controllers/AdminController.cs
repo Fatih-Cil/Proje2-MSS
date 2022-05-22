@@ -20,15 +20,16 @@ namespace MSSWebUI.Controllers
         IShopService _shopService;
         ICampaignService _campaignService;
         IVisitorEventService _visitorEventService;
-        
+        IFinanceService _financeService;
 
-        public AdminController(IEmployeeService employeeService, IAuthorityService authorityService, IShopService shopService,ICampaignService campaignService, IVisitorEventService visitorEventService)
+        public AdminController(IEmployeeService employeeService, IAuthorityService authorityService, IShopService shopService,ICampaignService campaignService, IVisitorEventService visitorEventService, IFinanceService financeService)
         {
             _employeeService = employeeService;
             _authorityService = authorityService;
             _shopService = shopService;
             _campaignService = campaignService;
             _visitorEventService = visitorEventService;
+            _financeService = financeService;
         }
 
         public bool SessionKontrol()
@@ -62,7 +63,7 @@ namespace MSSWebUI.Controllers
             var employeelist = _employeeService.GetByActiveAll(true);
             var visitorlist = _visitorEventService.GetAll();
             var campaignactive = _campaignService.GetByActiveAll(true);
-            
+            var financeList = _financeService.GetFinanceDetails();
             EmployeeAuthDTO employeeAuthDTO = new EmployeeAuthDTO();
             employeeAuthDTO.Authority = authorty;
             employeeAuthDTO.Employee = _employee;
@@ -70,7 +71,7 @@ namespace MSSWebUI.Controllers
             employeeAuthDTO.EmployeeList = employeelist;
             employeeAuthDTO.VisitorEventList = visitorlist;
             employeeAuthDTO.CampaignActiveList = campaignactive;
-
+            employeeAuthDTO.FinanceList = financeList;
             return View(employeeAuthDTO);
         }
 
@@ -80,6 +81,11 @@ namespace MSSWebUI.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("index","home");
+        }
+
+        public IActionResult ErrorPage()
+        {
+            return View();
         }
     }
 }

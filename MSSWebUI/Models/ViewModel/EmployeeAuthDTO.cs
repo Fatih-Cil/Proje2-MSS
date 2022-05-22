@@ -16,7 +16,7 @@ namespace MSSWebUI.Models.ViewModel
         public List<Authority> AuthorityList { get; set; }
         public Authority Authority { get; set; }
         public string AuthorityName { get; set; }
-        public List<Finance> FinanceList { get; set; }
+        public List<FinanceDetailDTO> FinanceList { get; set; }
         public Finance Finance { get; set; }
         public List<Shop> ShopList { get; set; }
         public Shop Shop { get; set; }
