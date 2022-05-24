@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MSSWebUI.Models;
 using MSSWebUI.Models.DTO;
 using Newtonsoft.Json;
 using System;
@@ -9,8 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace MSSWebUI.Controllers
 {
+    
     public class VisitorController : Controller
     {
         Employee _employee;
@@ -51,8 +54,16 @@ namespace MSSWebUI.Controllers
             }
             ShowVisitorEventDTO showVisitorEventDTO = new ShowVisitorEventDTO();
             showVisitorEventDTO.VisitorDetails = _visitorEventService.GetVisitorDetails();
-            showVisitorEventDTO.ShopList = _shopService.GetAll();
+            //showVisitorEventDTO.ShopList = _shopService.GetAll();
+
             return View(showVisitorEventDTO);
         }
+
+        [HttpPost]
+        public IActionResult Chart()
+        {
+            return View();
+        }
+
     }
 }

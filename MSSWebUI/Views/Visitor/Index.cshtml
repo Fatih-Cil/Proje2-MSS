@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
+
+
+
 <div class="card">
     <div class="card-header">
 
@@ -18,7 +22,7 @@
 
                     <div class="col-sm-12 col-lg-12 col-xl-12">
 
-                        
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="display" id="basic-2">
@@ -30,13 +34,13 @@
                                             <th scope="col">Tarih</th>
                                             <th scope="col">Saat</th>
                                             <th scope="col">Pozisyon</th>
-                                          
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model.VisitorDetails.OrderByDescending(x => x.EventDate))
                                         {
-                                           
+
 
                                             <tr>
                                                 <th scope="row">@item.VisitorId</th>
@@ -45,7 +49,7 @@
                                                 <td>@item.EventDate.ToShortDateString()</td>
                                                 <td>@item.EventTime</td>
                                                 <td>@item.Pozition</td>
-                                                
+
                                             </tr>
 
 

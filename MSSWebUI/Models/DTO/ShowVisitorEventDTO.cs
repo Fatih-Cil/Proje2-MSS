@@ -13,6 +13,7 @@ namespace MSSWebUI.Models.DTO
         public List<Shop> ShopList { get; set; }
         public VisitorEvent VisitorEvent { get; set; }
         public Shop Shop { get; set; }
+       
 
     }
 }

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="card">
     <div class="card-header">
         <h5>Bilgi Ekranı</h5>
@@ -78,6 +79,8 @@
                                         <p class="h5 txt-primary">Kapanış:<bold> @shop.Closing</bold></p>
 
                                     </label><br />
+                                    <a class="btn btn-primary"  href="/Chart/index/@shop.ShopId"><i class="icofont icofont-chart-histogram"></i> İstatistik Getir</a>
+
 
                                 }
                             </div>
@@ -86,8 +89,7 @@
                 }
             }
         </div>
-
-
+        
+        
     </div>
 </div>
-
