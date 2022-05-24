@@ -30,7 +30,8 @@ namespace MSSWebUI.Controllers
 
             List<DataPoint> dataPoints1 = new List<DataPoint>();
             List<DataPoint> dataPoints2 = new List<DataPoint>();
-            for (double i = -7; i < 0; i++)
+            List<DataPoint> dataPoints3 = new List<DataPoint>();
+            for (double i = -7; i <= 0; i++)
             {
 
                 var visitdate = DateTime.Now.AddDays(i);
@@ -41,7 +42,7 @@ namespace MSSWebUI.Controllers
                 dataPoints1.Add(new DataPoint(visitdate.ToString("dd MMM"), toplamMusteri));
             }
 
-            for (double i = -30; i < 0; i++)
+            for (double i = -30; i <= 0; i++)
             {
 
                 var visitdate = DateTime.Now.AddDays(i);
@@ -52,11 +53,21 @@ namespace MSSWebUI.Controllers
                 dataPoints2.Add(new DataPoint(visitdate.ToString("dd MMM"), toplamMusteri));
             }
 
+            for (double i = -180; i <= 0; i++)
+            {
 
+                var visitdate = DateTime.Now.AddDays(i);
+                var girdi = visitorEvent.Where(x => x.Pozition.Contains("GIRDI") && x.EventDate.ToShortDateString() == visitdate.ToShortDateString() && x.ShopName == shop.ShopName && x.Locasion == shop.Locasion).Count();
+                var giris = visitorEvent.Where(x => x.Pozition.Contains("GIRIS") && x.EventDate.ToShortDateString() == visitdate.ToShortDateString() && x.ShopName == shop.ShopName && x.Locasion == shop.Locasion).Count();
+                var toplamMusteri = girdi - giris;
+
+                dataPoints3.Add(new DataPoint(visitdate.ToString("dd MMM"), toplamMusteri));
+            }
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints1);
 
             ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints2);
 
-            ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints1);
+            ViewBag.DataPoints3 = JsonConvert.SerializeObject(dataPoints3);
 
 
 
@@ -64,14 +75,6 @@ namespace MSSWebUI.Controllers
 
         }
 
-        public void CreateChart(int id)
-        {
-            var shop = _shopService.GetByShopId(id);
-            TempData["shopname"] = shop.ShopName;
-            TempData["locasion"] = shop.Locasion;
-            TempData["id"] = id;
-
-            Redirect("Index");
-        }
+      
     }
 }
