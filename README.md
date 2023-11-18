@@ -14,3 +14,4 @@ Bu projenin hayata geçmesi ile sağlanacak kazanımlar;
 - Yönetici yoğun olan gün ve saatleri önceden gözlemleyerek gerekli kampanya çalışmalarını hayata geçirebilir.
 - Şube vitrinine koyulan yeni ürünlerin müşteriyi çekme potansiyelini giren müşteri sayısına göre analiz edebilir.
 - Anlık olarak şube içerisindeki müşteri sayısına erişerek ziyaretçi sasıyı takip edebilir.
+## Ekran görüntüleri Müşteri Sayaç Sistemi.pptx sunumunda görüntülenebilir.
